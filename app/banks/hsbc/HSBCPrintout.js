@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 
-// Dynamic Barcode Generator for authentic SWIFT printouts (smaller size to match PDF)
+// Dynamic Barcode Generator for authentic SWIFT printouts (exact dimensions to match PDF)
 const Barcode = ({ value }) => {
   if (!value) return null;
   
@@ -25,26 +25,23 @@ const Barcode = ({ value }) => {
     let width = 0;
     const currentVal = pattern[i];
     while (i < pattern.length && pattern[i] === currentVal) {
-      width += 0.8; // compact width
+      width += 1.0; // exact integer width to make barcode sharp
       i++;
     }
     
     if (currentVal === "1") {
-      elements.push(<rect key={x} x={x} y={0} width={width} height={24} fill="black" />);
+      elements.push(<rect key={x} x={x} y={0} width={width} height={36} fill="black" />);
     }
     x += width;
   }
   
-  // Create H S B C 5 8 7 0 6 9 2 4 8 9 1 4 format
-  const spacedValue = value.split("").join(" ");
-  
   return (
-    <div className="flex flex-col items-center select-none bg-white p-0.5">
-      <svg width={Math.ceil(x)} height="24" className="block">
+    <div className="flex flex-col items-center select-none bg-white">
+      <svg width={Math.ceil(x)} height="36" className="block">
         {elements}
       </svg>
-      <span className="text-[9px] font-bold font-mono text-black uppercase mt-1 select-text">
-        {spacedValue}
+      <span className="text-[9px] font-bold text-black uppercase mt-1 select-text" style={{ fontFamily: "'Courier New', Courier, monospace", letterSpacing: "0.5px" }}>
+        {value}
       </span>
     </div>
   );
@@ -291,16 +288,18 @@ ${transmissionCode}`;
         
         {/* PAGE 1 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page1">
-          {/* Logo & Barcode Row */}
-          <div className="flex justify-between items-start mb-4">
-            <Image src="/logos/hsbc.jpg" alt="HSBC Logo" width={110} height={28} priority className="h-7 w-auto object-contain mt-1" />
+          {/* Logo & Barcode Row aligned to exactly 94ch width */}
+          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
+            <Image src="/logos/hsbc.jpg" alt="HSBC Logo" width={150} height={44} priority className="h-11 w-auto object-contain" />
             <Barcode value={transaction.senderReference || "HSBC587069248914"} />
           </div>
           
           {/* Page 1 SWIFT Text */}
-          <pre className="text-[11px] leading-[14px] whitespace-pre text-black flex-1 select-text" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "normal" }}>
-            {page1Text}
-          </pre>
+          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
+            <pre className="text-[11px] leading-[14px] whitespace-pre text-black flex-1 select-text" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "normal", width: "94ch" }}>
+              {page1Text}
+            </pre>
+          </div>
           
           {/* Watermark/Footer */}
           <div className="absolute bottom-4 right-6 text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase">
@@ -310,16 +309,18 @@ ${transmissionCode}`;
 
         {/* PAGE 2 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page2">
-          {/* Logo only Row */}
-          <div className="flex justify-between items-start mb-4">
-            <Image src="/logos/hsbc.jpg" alt="HSBC Logo" width={110} height={28} priority className="h-7 w-auto object-contain mt-1" />
-            <div className="w-[120px] h-[30px]"></div> {/* Spacer */}
+          {/* Logo only Row aligned to exactly 94ch width */}
+          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
+            <Image src="/logos/hsbc.jpg" alt="HSBC Logo" width={150} height={44} priority className="h-11 w-auto object-contain" />
+            <div className="w-[120px] h-[46px]"></div> {/* Spacer of matching height */}
           </div>
           
           {/* Page 2 Interventions Text */}
-          <pre className="text-[11px] leading-[14px] whitespace-pre text-black flex-1 select-text" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "normal" }}>
-            {page2Text}
-          </pre>
+          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
+            <pre className="text-[11px] leading-[14px] whitespace-pre text-black flex-1 select-text" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: "normal", width: "94ch" }}>
+              {page2Text}
+            </pre>
+          </div>
           
           {/* Watermark/Footer */}
           <div className="absolute bottom-4 right-6 text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase">
