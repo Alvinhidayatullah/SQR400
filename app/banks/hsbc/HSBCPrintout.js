@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 
 // Code-128 structured barcode element (optimized width & height for authentic SWIFT receipts)
@@ -27,14 +28,14 @@ const Barcode = ({ value }) => {
       idx++;
     }
     if (currentVal === "1") {
-      elements.push(<rect key={x} x={x} y={0} width={width} height={42} fill="black" />);
+      elements.push(<rect key={x} x={x} y={0} width={width} height={40} fill="black" />);
     }
     x += width;
   }
 
   return (
     <div className="flex flex-col items-end">
-      <svg width={Math.ceil(x)} height="42" className="block">
+      <svg width={Math.ceil(x)} height="40" className="block">
         {elements}
       </svg>
       <span
@@ -138,8 +139,8 @@ const HSBCPrintout = ({ data, onBack }) => {
   const cipher = (technical.cipher || `PTZH_DETH-${senderCode4}-${formattedDates.monthShort}${formattedDates.dayNum}-${charges}103`).toUpperCase();
   const transmissionCode = (technical.transmissionCode || `PRT_TPZH${formattedDates.yearNum}${formattedDates.monthNum}${formattedDates.dayNum}`).toUpperCase();
 
-  // Monospace alignments (80 character constraints)
-  const lineLength = 80;
+  // Monospace alignments (94 character constraints from PDF analysis)
+  const lineLength = 94;
   
   const centerDashes = (text) => {
     const dashCount = lineLength - text.length;
@@ -148,19 +149,20 @@ const HSBCPrintout = ({ data, onBack }) => {
     return "-".repeat(leftDashes) + text + "-".repeat(rightDashes);
   };
 
-  // Header line 1
+  // Header line 1: Date (left-aligned) and SWIFT ACKS (right-aligned)
   const leftCol = formattedDates.dateTimeStr;
-  const centerCol = `++++++++ ${institution.bankName || "HSBC UK BANK PLC"} ++++++++`.toUpperCase();
   const rightCol = `SWIFT ACKS-8547-${formattedDates.yearMonthStr}`;
-  const halfWidth = Math.floor(lineLength / 2);
-  const centerStart = halfWidth - Math.floor(centerCol.length / 2);
-  let headerLine1 = leftCol.padEnd(centerStart, " ") + centerCol;
-  headerLine1 = headerLine1.padEnd(lineLength - rightCol.length, " ") + rightCol;
+  const headerLine1 = leftCol.padEnd(lineLength - rightCol.length, " ") + rightCol;
 
-  // Header line 2
+  // Header line 2: Bank name centered
+  const centerCol = `++++++++ ${institution.bankName || "HSBC UK BANK PLC"} ++++++++`.toUpperCase();
+  const centerStart = Math.floor(lineLength / 2) - Math.floor(centerCol.length / 2);
+  const headerLine2 = " ".repeat(centerStart) + centerCol;
+
+  // Header line 3: Date long (left-aligned) and Message type (right-aligned)
   const dateLongStrUpper = formattedDates.dateLongStr.toUpperCase();
   const msgTypeStr = "++++++103++";
-  const headerLine2 = dateLongStrUpper.padEnd(lineLength - msgTypeStr.length, " ") + msgTypeStr;
+  const headerLine3 = dateLongStrUpper.padEnd(lineLength - msgTypeStr.length, " ") + msgTypeStr;
 
   const senderLines = [
     (institution.bankName || "HSBC UK BANK PLC").toUpperCase(),
@@ -188,6 +190,7 @@ const HSBCPrintout = ({ data, onBack }) => {
   // Create Page 1 RAW SWIFT Text
   const page1Text = `${headerLine1}
 ${headerLine2}
+${headerLine3}
 SINGLE CUSTOMER CASH TRANSFER
 ${"-".repeat(lineLength)}
 NOTIFICATION (TRANSMISSION) OF ORIGINAL SENT TO SWIFT WIRE SYSTEM
@@ -198,7 +201,7 @@ SRC RTE                   : ${(technical.srcRte || "HBUKGB4BXXX").toUpperCase()}
 DEST RTE                  : ${(technical.destRte || "BNINIDJAXXX").toUpperCase()}
 SESSION HEADER            : ${(technical.sessionHeader || "HBUKGB4BXXX").toUpperCase()}
 MESSAGE INPUT REFERENCE   : ${(technical.msgInputRef || "HBUKGB4BXXX75412835942185").toUpperCase()}
-MESSAGE OUTPUT REFERENCE  : ${(technical.msgOutputRef || "BNINIDJAXXX76102436987134").toUpperCase()}
+MESSAGE OUTPUT REFERENCE  : ${(technical.msgOutputRef || "BNINIDJAXXX76102436987104").toUpperCase()}
 ${centerDashes("MESSAGE HEADER")}
 ${senderFormatted}
 ${receiverFormatted}
@@ -239,13 +242,13 @@ ${centerDashes("MESSAGE TRAILER")}
 {CHK: ${(technical.chk || "HBUKGB4B2119809863").toUpperCase()}}
 PKI SIGNATURE: ${(technical.pkiSignature || "MAC-EQUIVALENT").toUpperCase()}`;
 
-  // Create Page 2 RAW SWIFT Text
-  const page2Text = `${centerDashes("INTERVENTIONS")}
+  // Create Page 2 RAW SWIFT Text (strictly matches layout sequence from PDF screenshot)
+  const page2Text = `-------------------------INTERVENTIONS--------------------------------------------------------
 CONFIRMED AND RECEIVED
-${"-".repeat(lineLength)}
+----------------------------------------------------------------------------------------------
 ANSWER BACK AND ACKNOWLEDGMENT MESSAGE AUTOMATED FILE TRANSFER (AFT)
 GATEWAY RESPONSE VALIDATION SERVICE PROVIDER LOG/APPLICATION GENERATED REPORT ACKNOWLEDGMENT
-& AUTHENTICATION ACK MSG DELIVERY
+& AUTHENTICATION ACK NAG DELIVERY
 
 FTA/FTI CONFIRMATION STATEMENT PASS/FAIL STATUS
 
@@ -265,7 +268,7 @@ FTA/FTI CONFIRMATION STATEMENT PASS/FAIL STATUS
 0180 FTX, -------------------------------- Valid
 0190 UNT, -------------------------------- Valid
 
-${centerDashes("{XMT DELIVERY REPORT}")}
+--------------{XMT DELIVERY REPORT} ----------------------------------------------------------
 TRACK CODE: ${trackCode}
 CATEGORY: NETWORK REPORT
 CREATION DATE/TIME: ${formattedDates.dateTimeStr}
@@ -273,10 +276,10 @@ APPLICATION: SWIFT / 103
 OPERATION: SYSTEM
 TEXT {1:F01 ${formattedDates.yearNum}${senderCode8} ${institution.accountNumber || "GB32HBUK40086810148040"}} {2:P103${receiverBank.swiftCode || "BNINIDJAXXX"} ${beneficiary.accountNumber || "8980888829"}}
 {2:{254:124}{141:}
-${"-".repeat(lineLength)}
+-----------------------------------------------------------------------------------------------
 (+) END OF MESSAGE
 ${"*".repeat(lineLength)}
-MESSAGE HAS BEEN TRANSMITTED SUCCESSFULLY (02) ${"*".repeat(lineLength - 46)}
+MESSAGE HAS BEEN TRANSMITTED SUCCESSFULLY (02) ${"*".repeat(lineLength - 47)}
 CIPHER: ${cipher}
 END OF TRANSMISSION
 ${transmissionCode}`;
@@ -307,15 +310,15 @@ ${transmissionCode}`;
         
         {/* PAGE 1 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page1">
-          {/* Logo & Barcode Row aligned perfectly to 80ch layout width */}
-          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "80ch", minWidth: "80ch" }}>
+          {/* Logo & Barcode Row aligned perfectly to 94ch layout width */}
+          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/hsbc.jpg" alt="HSBC Logo" className="h-[42px] w-auto object-contain" />
+            <img src="/logos/hsbc.jpg" alt="HSBC Logo" style={{ height: "42px", width: "auto", objectFit: "contain" }} />
             <Barcode value={transaction.senderReference || "HSBC587069248914"} />
           </div>
           
           {/* Page 1 SWIFT Text */}
-          <div className="mx-auto" style={{ width: "80ch", minWidth: "80ch" }}>
+          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
             <pre className="whitespace-pre flex-1 select-text" style={preStyle}>
               {page1Text}
             </pre>
@@ -329,15 +332,15 @@ ${transmissionCode}`;
 
         {/* PAGE 2 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page2">
-          {/* Logo only Row aligned perfectly to 80ch layout width */}
-          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "80ch", minWidth: "80ch" }}>
+          {/* Logo only Row aligned perfectly to 94ch layout width */}
+          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/hsbc.jpg" alt="HSBC Logo" className="h-[42px] w-auto object-contain" />
+            <img src="/logos/hsbc.jpg" alt="HSBC Logo" style={{ height: "42px", width: "auto", objectFit: "contain" }} />
             <div className="w-[120px] h-[52px]"></div> {/* Spacer */}
           </div>
           
           {/* Page 2 Interventions Text */}
-          <div className="mx-auto" style={{ width: "80ch", minWidth: "80ch" }}>
+          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
             <pre className="whitespace-pre flex-1 select-text" style={preStyle}>
               {page2Text}
             </pre>
