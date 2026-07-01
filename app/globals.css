@@ -38,19 +38,21 @@ html, body {
 }
 
 @media print {
-  /* Set html/body print defaults */
+  /* Set html/body print defaults and force exact background rendering for barcode/logos */
   html, body {
     background: white !important;
     margin: 0 !important;
     padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Collapse outer Next.js & dashboard structural wrappers without affecting descendants */
+  /* Collapse outer Next.js & structural layout wrappers without affecting page content */
   main,
   main > div,
   main > div > div,
-  main > div > div > div,
-  main > div > div > div > div {
+  main > div > div > div:not(.print-page),
+  main > div > div > div > div:not(.print-page) {
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
@@ -80,10 +82,14 @@ html, body {
     background: white !important;
     box-sizing: border-box !important;
     position: relative !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .print-page * {
     background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .print-page rect {
