@@ -266,7 +266,7 @@ FTA/FTI CONFIRMATION STATEMENT PASS/FAIL STATUS
 0190 UNT, -------------------------------- Valid
 
 ${centerDashes("{XMT DELIVERY REPORT}")}
-TRACK CODE: ${track}
+TRACK CODE: ${trackCode}
 CATEGORY: NETWORK REPORT
 CREATION DATE/TIME: ${formattedDates.dateTimeStr}
 APPLICATION: SWIFT / 103
