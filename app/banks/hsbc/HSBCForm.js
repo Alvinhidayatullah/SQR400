@@ -77,31 +77,38 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
     });
   };
 
+  const inputClass = "w-full px-4 py-2.5 bg-slate-950 border-2 border-slate-800 focus:border-red-600 rounded-xl focus:ring-2 focus:ring-red-900/30 transition-all duration-200 text-sm text-slate-100 placeholder-slate-600 outline-none";
+  const selectClass = "w-full px-4 py-2.5 bg-slate-950 border-2 border-slate-800 focus:border-red-600 rounded-xl focus:ring-2 focus:ring-red-900/30 transition-all duration-200 text-sm text-slate-100 outline-none";
+  const labelClass = "text-xs font-bold text-slate-400 block mb-1.5 uppercase tracking-wider";
+  const sectionClass = "border border-slate-800 rounded-2xl p-5 bg-slate-950/40 mb-6";
+
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+    <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
       {/* Header HSBC */}
-      <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-200">
-        <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">HSBC</div>
+      <div className="flex items-center gap-4 mb-6 pb-5 border-b border-slate-800">
+        <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center text-white font-black text-xs tracking-wider shadow-lg shadow-red-600/20">
+          HSBC
+        </div>
         <div>
-          <h2 className="text-xl font-bold text-gray-800">HSBC UK Transfer</h2>
-          <p className="text-xs text-gray-500">MT103 Single Customer Cash Transfer</p>
+          <h2 className="text-xl font-bold text-white tracking-wide">HSBC UK Terminal</h2>
+          <p className="text-xs text-slate-400">MT103 Single Customer Cash Transfer Generator</p>
         </div>
       </div>
 
       {/* SENDER (INSTITUTION) DETAILS */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-gray-50/50 mb-6">
-        <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-1">
-          <span className="text-xl">🏛️</span> SENDER (INSTITUTION) DETAILS
+      <div className={sectionClass}>
+        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+          <span>🏛️</span> SENDER (INSTITUTION) DETAILS
         </h3>
-        <p className="text-xs text-gray-500 italic mb-4">F50A/F52A: Account with Institution / Sender Details</p>
+        <p className="text-[10px] text-slate-500 italic mb-4">F50A/F52A: Account with Institution / Sender Details</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">
+            <label className={labelClass}>
               Swift Code <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.institution.swiftCode}
               onChange={(e) => handleChange("institution", "swiftCode", e.target.value)}
               placeholder="e.g., HBUKGB4B"
@@ -109,40 +116,40 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Account Number</label>
+            <label className={labelClass}>Account Number</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.institution.accountNumber}
               onChange={(e) => handleChange("institution", "accountNumber", e.target.value)}
               placeholder="e.g., GB32HBUK40086810148040"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Account Name</label>
+            <label className={labelClass}>Account Name</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.institution.accountName}
               onChange={(e) => handleChange("institution", "accountName", e.target.value)}
               placeholder="e.g., XA FINANCIAL LTD"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Bank Name</label>
+            <label className={labelClass}>Bank Name</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.institution.bankName}
               onChange={(e) => handleChange("institution", "bankName", e.target.value)}
               placeholder="e.g., HSBC UK BANK PLC"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Address</label>
+            <label className={labelClass}>Address</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.institution.address}
               onChange={(e) => handleChange("institution", "address", e.target.value)}
               placeholder="e.g., AYLESBURY, MARKET SQUARE, 8 MARKET SQUARE, AYLESBURY, HP 20 1TW, UK"
@@ -152,37 +159,37 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
       </div>
 
       {/* RECEIVER BANK DETAILS */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-gray-50/50 mb-6">
-        <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-1">
-          <span className="text-xl">🏦</span> RECEIVER BANK DETAILS
+      <div className={sectionClass}>
+        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+          <span>🏦</span> RECEIVER BANK DETAILS
         </h3>
-        <p className="text-xs text-gray-500 italic mb-4">F57A: Receiver Institution / Correspondent Bank</p>
+        <p className="text-[10px] text-slate-500 italic mb-4">F57A: Receiver Institution / Correspondent Bank</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Bank Name</label>
+            <label className={labelClass}>Bank Name</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.receiverBank.bankName}
               onChange={(e) => handleChange("receiverBank", "bankName", e.target.value)}
               placeholder="e.g., BANK NEGARA INDONESIA - PT (PERSERO)"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Swift Code</label>
+            <label className={labelClass}>Swift Code</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.receiverBank.swiftCode}
               onChange={(e) => handleChange("receiverBank", "swiftCode", e.target.value)}
               placeholder="e.g., BNINIDJAXXX"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Address</label>
+            <label className={labelClass}>Address</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.receiverBank.address}
               onChange={(e) => handleChange("receiverBank", "address", e.target.value)}
               placeholder="e.g., BNI BUILDING, FLOOR 7, JALAN JENDERAL SUDIRMAN 1, JAKARTA, INDONESIA"
@@ -192,19 +199,19 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
       </div>
 
       {/* BENEFICIARY CUSTOMER DETAILS */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-gray-50/50 mb-6">
-        <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-1">
-          <span className="text-xl">👤</span> BENEFICIARY CUSTOMER DETAILS
+      <div className={sectionClass}>
+        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+          <span>👤</span> BENEFICIARY CUSTOMER DETAILS
         </h3>
-        <p className="text-xs text-gray-500 italic mb-4">F59: Beneficiary Customer Name and Address</p>
+        <p className="text-[10px] text-slate-500 italic mb-4">F59: Beneficiary Customer Name and Address</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">
+            <label className={labelClass}>
               Account Number <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.beneficiary.accountNumber}
               onChange={(e) => handleChange("beneficiary", "accountNumber", e.target.value)}
               placeholder="e.g., 8980888829"
@@ -212,12 +219,12 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">
+            <label className={labelClass}>
               Account Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.beneficiary.accountName}
               onChange={(e) => handleChange("beneficiary", "accountName", e.target.value)}
               placeholder="e.g., PT ALDO PUTRA MANDIRI BANDUNG"
@@ -225,30 +232,30 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Bank Swift Code</label>
+            <label className={labelClass}>Bank Swift Code</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.beneficiary.swiftCode}
               onChange={(e) => handleChange("beneficiary", "swiftCode", e.target.value)}
               placeholder="e.g., BNINIDJAXXX"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Bank Name</label>
+            <label className={labelClass}>Bank Name</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.beneficiary.bankName}
               onChange={(e) => handleChange("beneficiary", "bankName", e.target.value)}
               placeholder="e.g., BANK NEGARA INDONESIA - PT (PERSERO)"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Address</label>
+            <label className={labelClass}>Address</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.beneficiary.address}
               onChange={(e) => handleChange("beneficiary", "address", e.target.value)}
               placeholder="e.g., BNI BUILDING, JALAN ASIA AFRIKA, BANDUNG, INDONESIA"
@@ -258,36 +265,36 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
       </div>
 
       {/* TRANSACTION DETAILS */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-gray-50/50 mb-6">
-        <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-1">
-          <span className="text-xl">📝</span> TRANSACTION DETAILS
+      <div className={sectionClass}>
+        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+          <span>📝</span> TRANSACTION DETAILS
         </h3>
-        <p className="text-xs text-gray-500 italic mb-4">SWIFT Fields: F20, F21, F23B, F32A, F33B, F70, F71A, F77B</p>
+        <p className="text-[10px] text-slate-500 italic mb-4">SWIFT Fields: F20, F21, F23B, F32A, F33B, F70, F71A, F77B</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">{"Sender's Reference (F20)"}</label>
+            <label className={labelClass}>{"Sender's Reference (F20)"}</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.transaction.senderReference}
               onChange={(e) => handleChange("transaction", "senderReference", e.target.value)}
               placeholder="e.g., HSBC587069248914"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Transaction Code (F21)</label>
+            <label className={labelClass}>Transaction Code (F21)</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.transaction.transactionCode}
               onChange={(e) => handleChange("transaction", "transactionCode", e.target.value)}
               placeholder="e.g., HBUKGB4B248914"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Bank Operation Code (F23B)</label>
+            <label className={labelClass}>Bank Operation Code (F23B)</label>
             <select
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black font-medium"
+              className={selectClass}
               value={formData.transaction.bankOperationCode}
               onChange={(e) => handleChange("transaction", "bankOperationCode", e.target.value)}
             >
@@ -297,19 +304,19 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="text-sm font-semibold text-gray-700 block mb-1.5">Value Date</label>
+              <label className={labelClass}>Value Date</label>
               <input
                 type="date"
-                className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+                className="w-full px-3 py-2 bg-slate-950 border-2 border-slate-800 focus:border-red-600 rounded-xl text-xs text-slate-100 outline-none focus:ring-2 focus:ring-red-900/30"
                 value={formData.transaction.valueDate}
                 onChange={(e) => handleChange("transaction", "valueDate", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-sm font-semibold text-gray-700 block mb-1.5">Tx Time</label>
+              <label className={labelClass}>Tx Time</label>
               <input
                 type="text"
-                className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+                className={inputClass}
                 value={formData.transaction.transactionTime}
                 onChange={(e) => handleChange("transaction", "transactionTime", e.target.value)}
                 placeholder="HH:MM:SS"
@@ -317,9 +324,9 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             </div>
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Currency</label>
+            <label className={labelClass}>Currency</label>
             <select
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black font-medium"
+              className={selectClass}
               value={formData.transaction.currency}
               onChange={(e) => handleChange("transaction", "currency", e.target.value)}
             >
@@ -331,12 +338,12 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             </select>
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">
+            <label className={labelClass}>
               Amount <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.transaction.amount}
               onChange={(e) => handleChange("transaction", "amount", e.target.value)}
               placeholder="e.g., 3500000"
@@ -344,19 +351,19 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Instructed Amount</label>
+            <label className={labelClass}>Instructed Amount</label>
             <input
               type="number"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.transaction.instructedAmount}
               onChange={(e) => handleChange("transaction", "instructedAmount", e.target.value)}
               placeholder="e.g., 3500000"
             />
           </div>
           <div>
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Details of Charges (F71A)</label>
+            <label className={labelClass}>Details of Charges (F71A)</label>
             <select
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black font-medium"
+              className={selectClass}
               value={formData.transaction.charges}
               onChange={(e) => handleChange("transaction", "charges", e.target.value)}
             >
@@ -366,10 +373,10 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
             </select>
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm font-semibold text-gray-700 block mb-1.5">Remittance Information (F70)</label>
+            <label className={labelClass}>Remittance Information (F70)</label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200 bg-white text-sm text-black"
+              className={inputClass}
               value={formData.transaction.remittanceInfo}
               onChange={(e) => handleChange("transaction", "remittanceInfo", e.target.value)}
               placeholder="e.g., INVESTMENT"
@@ -378,131 +385,122 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
         </div>
       </div>
 
-      {/* TECHNICAL / SWIFT CONFIGS (COLLAPSIBLE) */}
-      <div className="border border-gray-200 rounded-xl p-5 bg-gray-50/50 mb-6 transition-all">
+      {/* TECHNICAL SETTINGS */}
+      <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950/20 mb-6">
         <button
           type="button"
           onClick={() => setShowTechnical(!showTechnical)}
-          className="w-full flex justify-between items-center text-base font-bold text-gray-800 focus:outline-none"
+          className="flex justify-between items-center w-full text-slate-300 hover:text-white font-bold text-sm tracking-wide transition-colors outline-none"
         >
-          <span className="flex items-center gap-2">⚙️ TECHNICAL / SWIFT ROUTING INFO</span>
-          <span className="text-gray-500 text-sm">{showTechnical ? "Hide ▲" : "Show ▼"}</span>
+          <span>⚙️ TECHNICAL SWIFT SETTINGS</span>
+          <span>{showTechnical ? "▲ Hide" : "▼ Show"}</span>
         </button>
-
         {showTechnical && (
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-200 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-800/80">
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Source Route (SRC RTE)</label>
+              <label className={labelClass}>Source Route (SRC RTE)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.srcRte}
                 onChange={(e) => handleChange("technical", "srcRte", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Destination Route (DEST RTE)</label>
+              <label className={labelClass}>Destination Route (DEST RTE)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.destRte}
                 onChange={(e) => handleChange("technical", "destRte", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Session Header</label>
+              <label className={labelClass}>Session Header</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.sessionHeader}
                 onChange={(e) => handleChange("technical", "sessionHeader", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Message Input Reference</label>
+              <label className={labelClass}>Message Input Ref</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.msgInputRef}
                 onChange={(e) => handleChange("technical", "msgInputRef", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Message Output Reference</label>
+              <label className={labelClass}>Message Output Ref</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.msgOutputRef}
                 onChange={(e) => handleChange("technical", "msgOutputRef", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Checksum (CHK)</label>
+              <label className={labelClass}>Checksum (CHK)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.chk}
                 onChange={(e) => handleChange("technical", "chk", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">PKI Signature</label>
+              <label className={labelClass}>PKI Signature</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.pkiSignature}
                 onChange={(e) => handleChange("technical", "pkiSignature", e.target.value)}
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Page 2 Track Code (Optional)</label>
+              <label className={labelClass}>Track Code (Auto if empty)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.trackCode}
                 onChange={(e) => handleChange("technical", "trackCode", e.target.value)}
-                placeholder="Auto-generated if blank"
+                placeholder="e.g. HBUK248914"
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Page 2 Cipher (Optional)</label>
+              <label className={labelClass}>Cipher (Auto if empty)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.cipher}
                 onChange={(e) => handleChange("technical", "cipher", e.target.value)}
-                placeholder="Auto-generated if blank"
+                placeholder="e.g. PTZH_DETH-HBUK..."
               />
             </div>
             <div>
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Page 2 Transmission Code (Optional)</label>
+              <label className={labelClass}>Transmission Code (Auto if empty)</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-1 focus:ring-red-200 bg-white text-xs text-black font-mono"
+                className={inputClass}
                 value={formData.technical.transmissionCode}
                 onChange={(e) => handleChange("technical", "transmissionCode", e.target.value)}
-                placeholder="Auto-generated if blank"
+                placeholder="e.g. PRT_TPZH..."
               />
             </div>
           </div>
         )}
       </div>
 
-      {/* NOTICE */}
-      <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg mb-6">
-        <p className="font-bold text-amber-800 text-sm">⚠️ IMPORTANT NOTICE</p>
-        <p className="text-amber-700 text-sm mt-1">Please review all values carefully. The fields are pre-populated with standard SWIFT configuration values to match the approved PDF template.</p>
-      </div>
-
-      {/* SUBMIT */}
+      {/* SUBMIT BUTTON */}
       <button
         type="submit"
-        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl text-lg transform hover:scale-[1.01]"
+        className="w-full py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-2xl font-black text-sm tracking-widest shadow-lg shadow-red-600/20 hover:shadow-red-600/35 transition-all duration-300 transform active:scale-[0.98] uppercase"
       >
-        🚀 GENERATE HSBC MT103 TRANSACTION
+        ⚡ Generate SWIFT MT103 Document
       </button>
-
-      <div className="text-center mt-4 text-gray-400 text-xs tracking-widest">sqr400web.com</div>
     </form>
   );
 };

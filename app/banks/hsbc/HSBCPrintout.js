@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 
 // Code-128 structured barcode element (optimized width & height for authentic SWIFT receipts)
@@ -24,23 +23,23 @@ const Barcode = ({ value }) => {
     let width = 0;
     const currentVal = pattern[idx];
     while (idx < pattern.length && pattern[idx] === currentVal) {
-      width += 0.95; // precise scaling
+      width += 1.1; // crisp horizontal scaling to fill right margin
       idx++;
     }
     if (currentVal === "1") {
-      elements.push(<rect key={x} x={x} y={0} width={width} height={40} fill="black" />);
+      elements.push(<rect key={x} x={x} y={0} width={width} height={44} fill="black" />);
     }
     x += width;
   }
 
   return (
     <div className="flex flex-col items-end">
-      <svg width={Math.ceil(x)} height="40" className="block">
+      <svg width={Math.ceil(x)} height="44" className="block">
         {elements}
       </svg>
       <span
         style={{
-          fontFamily: "'Courier New', Courier, monospace",
+          fontFamily: "Courier, 'Courier New', monospace",
           fontSize: "10px",
           fontWeight: "bold",
           letterSpacing: "0.2px",
@@ -285,70 +284,90 @@ END OF TRANSMISSION
 ${transmissionCode}`;
 
   const preStyle = {
-    fontFamily: "'Courier New', Courier, monospace",
+    fontFamily: "Courier, 'Courier New', monospace",
     fontWeight: "normal",
-    fontSize: "10.5px",
-    lineHeight: "13.5px",
+    fontSize: "11px", // exact Courier size to align 94 characters with the 620px boundary
+    lineHeight: "14.2px",
     color: "#000000",
     letterSpacing: "0px",
+    width: "100%",
   };
 
   return (
-    <div className="bg-gray-200 rounded-2xl p-4 md:p-6 print:bg-white print:p-0">
+    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 print:bg-white print:p-0 shadow-2xl">
       {/* Back and Print buttons */}
       <div className="flex flex-wrap justify-between gap-3 mb-6 no-print">
-        <button onClick={onBack} className="px-5 py-2.5 bg-gray-300 hover:bg-gray-400 rounded-lg font-semibold transition text-sm text-gray-800">
+        <button
+          onClick={onBack}
+          className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl font-bold transition-all duration-200 text-sm border border-slate-700"
+        >
           ← Back to Form
         </button>
-        <button onClick={() => window.print()} className="px-5 py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white rounded-lg font-semibold transition text-sm shadow-md">
+        <button
+          onClick={() => window.print()}
+          className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 text-sm shadow-lg shadow-blue-500/20"
+        >
           🖨️ Print / Download PDF
         </button>
       </div>
 
       {/* Pages Container */}
-      <div className="flex flex-col items-center gap-8 my-4 print:my-0 print:gap-0 bg-gray-600 py-8 px-4 rounded-xl print:bg-white print:p-0">
+      <div className="flex flex-col items-center gap-8 my-4 print:my-0 print:gap-0 bg-slate-950/60 py-8 px-4 rounded-2xl print:bg-white print:p-0">
         
         {/* PAGE 1 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page1">
-          {/* Logo & Barcode Row aligned perfectly to 94ch layout width */}
-          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/hsbc.jpg" alt="HSBC Logo" style={{ height: "42px", width: "auto", objectFit: "contain" }} />
-            <Barcode value={transaction.senderReference || "HSBC587069248914"} />
-          </div>
-          
-          {/* Page 1 SWIFT Text */}
-          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
-            <pre className="whitespace-pre flex-1 select-text" style={preStyle}>
-              {page1Text}
-            </pre>
-          </div>
-          
-          {/* Footer */}
-          <div className="absolute bottom-4 right-6 text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase">
-            HSBC UK WIRE SYSTEM • PAGE 1 OF 2
+          {/* Content Wrapper constrained strictly to 620px to prevent A4 screen/print overflow */}
+          <div className="w-[620px] mx-auto flex flex-col h-full justify-between">
+            <div>
+              {/* Logo & Barcode Row */}
+              <div className="flex justify-between items-end mb-8 w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logos/hsbc.jpg"
+                  alt="HSBC Logo"
+                  style={{ height: "42px", width: "auto", objectFit: "contain" }}
+                />
+                <Barcode value={transaction.senderReference || "HSBC587069248914"} />
+              </div>
+              
+              {/* Page 1 SWIFT Text */}
+              <pre className="whitespace-pre select-text" style={preStyle}>
+                {page1Text}
+              </pre>
+            </div>
+            
+            {/* Footer */}
+            <div className="text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase text-right mt-12">
+              HSBC UK WIRE SYSTEM • PAGE 1 OF 2
+            </div>
           </div>
         </div>
 
         {/* PAGE 2 */}
         <div className="swift-page print-page relative flex flex-col bg-white" id="hsbc-printout-page2">
-          {/* Logo only Row aligned perfectly to 94ch layout width */}
-          <div className="flex justify-between items-end mb-8 mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/hsbc.jpg" alt="HSBC Logo" style={{ height: "42px", width: "auto", objectFit: "contain" }} />
-            <div className="w-[120px] h-[52px]"></div> {/* Spacer */}
-          </div>
-          
-          {/* Page 2 Interventions Text */}
-          <div className="mx-auto" style={{ width: "94ch", minWidth: "94ch" }}>
-            <pre className="whitespace-pre flex-1 select-text" style={preStyle}>
-              {page2Text}
-            </pre>
-          </div>
-          
-          {/* Footer */}
-          <div className="absolute bottom-4 right-6 text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase">
-            HSBC UK WIRE SYSTEM • PAGE 2 OF 2
+          {/* Content Wrapper constrained strictly to 620px to prevent A4 screen/print overflow */}
+          <div className="w-[620px] mx-auto flex flex-col h-full justify-between">
+            <div>
+              {/* Logo only Row */}
+              <div className="flex justify-between items-end mb-8 w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logos/hsbc.jpg"
+                  alt="HSBC Logo"
+                  style={{ height: "42px", width: "auto", objectFit: "contain" }}
+                />
+              </div>
+              
+              {/* Page 2 Interventions Text */}
+              <pre className="whitespace-pre select-text" style={preStyle}>
+                {page2Text}
+              </pre>
+            </div>
+            
+            {/* Footer */}
+            <div className="text-[10px] font-mono text-gray-300 select-none pointer-events-none uppercase text-right mt-12">
+              HSBC UK WIRE SYSTEM • PAGE 2 OF 2
+            </div>
           </div>
         </div>
 
