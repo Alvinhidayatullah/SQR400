@@ -177,9 +177,11 @@ export default function Home() {
         </div>
 
         {/* Bank Selector - Custom Node Grid */}
-        <div className="no-print">
-          <BankSelector selectedBank={selectedBank} onSelectBank={setSelectedBank} />
-        </div>
+        {!showResult && (
+          <div className="no-print">
+            <BankSelector selectedBank={selectedBank} onSelectBank={setSelectedBank} />
+          </div>
+        )}
 
         {/* Form or Result Container */}
         <div className="transition-all duration-300">

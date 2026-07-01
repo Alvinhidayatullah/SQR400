@@ -13,6 +13,13 @@
       "passwordSalt": "9b5c2dcdcc9cd7c35d672c0de07aa336",
       "role": "user",
       "registeredAt": "2026-07-01T11:25:51.023Z"
+    },
+    {
+      "username": "tes22",
+      "passwordHash": "277d45b301657eae5f54a24baa32dff03086561af2e4de4f28baf325a2b0930985e14bc69fce2c3f6f18deab61368ac5da0b23fabb804e03dee403190e4eee2a",
+      "passwordSalt": "0611f490456b3f2daf90ca63ca4d47c7",
+      "role": "user",
+      "registeredAt": "2026-07-01T12:20:53.269Z"
     }
   ],
   "traffic": [
@@ -24,6 +31,33 @@
       "amount": "3500000",
       "currency": "EUR",
       "senderRef": "HSBC587069248914"
+    },
+    {
+      "id": "178290846532590v97",
+      "timestamp": "2026-07-01T12:21:05.325Z",
+      "username": "tes22",
+      "bank": "HSBC UK",
+      "amount": "3500000",
+      "currency": "EUR",
+      "senderRef": "HSBC587069248914"
+    },
+    {
+      "id": "1782908514758p17sr",
+      "timestamp": "2026-07-01T12:21:54.758Z",
+      "username": "vinz_admin",
+      "bank": "HSBC UK",
+      "amount": "3500000",
+      "currency": "EUR",
+      "senderRef": "HSBC587069248914"
+    },
+    {
+      "id": "1782908533122z77dh",
+      "timestamp": "2026-07-01T12:22:13.122Z",
+      "username": "vinz_admin",
+      "bank": "BNI Indonesia",
+      "amount": "49000000",
+      "currency": "EUR",
+      "senderRef": "820F60418E0490C"
     }
   ]
 }
