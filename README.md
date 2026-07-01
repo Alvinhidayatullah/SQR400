@@ -22,24 +22,40 @@ Aplikasi ini dilengkapi dengan antarmuka pengguna yang bersih, responsif, dan di
 ```text
 sqr400-app/
 ├── app/
-│   ├── banks/            # Komponen formulir transaksi spesifik per bank (BCA, BNI, Citi, Deutsche, HSBC, Mandiri)
-│   ├── components/       # Komponen UI global (BankSelector, TransactionResult, dll.)
-│   ├── utils/            # Fungsi utilitas (formatMT103.js, konfigurasi bankConfig.js)
-│   ├── globals.css       # Styling global Tailwind
-│   ├── layout.js         # Layout utama aplikasi
-│   └── page.js           # Halaman utama aplikasi (dashboard utama)
+│   ├── banks/            # Komponen formulir transaksi spesifik per bank
+│   ├── components/       # Komponen UI global
+│   ├── utils/            # Fungsi utilitas (formatMT103.ts, db.ts)
+│   ├── globals.scss      # Styling global SCSS
+│   ├── layout.tsx        # Layout utama aplikasi
+│   └── page.tsx          # Halaman utama aplikasi
+├── migrate.js            # Skrip migrasi data JSON ke PostgreSQL
 ├── public/               # Aset statis seperti logo bank
 └── package.json          # Dependensi dan skrip proyek
 ```
 
 ## ⚙️ Persiapan & Menjalankan Aplikasi
 
-Ikuti langkah-langkah di bawah ini untuk menjalankan aplikasi secara lokal:
+Aplikasi ini sekarang menggunakan **PostgreSQL** sebagai basis datanya (untuk keamanan yang lebih baik dibanding JSON statis). Ikuti langkah-langkah di bawah ini:
 
 1. **Instalasi Dependensi**
    Pastikan Anda telah menginstal Node.js di sistem Anda, kemudian jalankan:
    ```bash
    npm install
+   ```
+
+2. **Konfigurasi Database (PostgreSQL)**
+   Pastikan Anda sudah menginstal dan menjalankan PostgreSQL.
+   - Buat database baru (misal: `sqr400`).
+   - Salin file `.env.example` ke `.env` (atau buat file `.env` baru).
+   - Isi kredensial database Anda di file `.env`:
+     ```env
+     DATABASE_URL=postgresql://user:password@localhost:5432/sqr400
+     ```
+
+3. **Migrasi Database**
+   Jalankan skrip migrasi untuk membuat tabel yang dibutuhkan secara otomatis:
+   ```bash
+   node migrate.js
    ```
 
 2. **Menjalankan Server Pengembangan**

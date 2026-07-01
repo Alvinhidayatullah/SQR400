@@ -4,7 +4,8 @@
 
 /* Set screen background to prevent white background on overscroll */
 html, body {
-  background-color: #020617 !important;
+  background: radial-gradient(circle at top, #0f172a 0%, #020617 100%) !important;
+  background-attachment: fixed !important;
 }
 
 /* Custom styles */

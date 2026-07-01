@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const HSBCForm = ({ onSubmit, initialData = {} }) => {
+const HSBCForm = ({ onSubmit, initialData = {} as any }: any) => {
   const [showTechnical, setShowTechnical] = useState(false);
   const [formData, setFormData] = useState({
     institution: {
@@ -77,9 +77,9 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
     });
   };
 
-  const inputClass = "w-full px-4 py-2.5 bg-slate-950/80 border border-slate-850 focus:border-cyan-500 rounded-xl focus:ring-2 focus:ring-cyan-500/10 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300 text-sm text-slate-100 placeholder-slate-650 outline-none";
-  const selectClass = "w-full px-4 py-2.5 bg-slate-950/80 border border-slate-850 focus:border-cyan-500 rounded-xl focus:ring-2 focus:ring-cyan-500/10 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300 text-sm text-slate-100 outline-none";
-  const labelClass = "text-[9px] font-black text-slate-450 block mb-1.5 uppercase tracking-widest";
+  const inputClass = "w-full px-4 py-2.5 bg-slate-950/80 border border-slate-850 focus:border-cyan-500 rounded-xl focus:ring-2 focus:ring-cyan-500/10 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300 text-base text-slate-100 placeholder-slate-650 outline-none";
+  const selectClass = "w-full px-4 py-2.5 bg-slate-950/80 border border-slate-850 focus:border-cyan-500 rounded-xl focus:ring-2 focus:ring-cyan-500/10 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300 text-base text-slate-100 outline-none";
+  const labelClass = "text-sm font-bold text-slate-400 block mb-1.5 uppercase tracking-widest";
   const sectionClass = "border border-slate-850 rounded-2xl p-5 bg-slate-950/20 mb-6 relative overflow-hidden";
 
   return (
@@ -89,21 +89,21 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
 
       {/* Header HSBC */}
       <div className="flex items-center gap-4 mb-6 pb-5 border-b border-slate-850">
-        <div className="w-12 h-12 bg-red-650/15 text-red-400 border border-red-900/30 rounded-xl flex items-center justify-center font-black text-xs tracking-wider shadow-lg">
+        <div className="w-12 h-12 bg-red-650/15 text-red-400 border border-red-900/30 rounded-xl flex items-center justify-center font-black text-sm tracking-wider shadow-lg">
           HSBC
         </div>
         <div>
           <h2 className="text-base font-bold text-white tracking-widest uppercase">HSBC UK NODE</h2>
-          <p className="text-[9px] text-slate-500 font-mono tracking-wider uppercase">MT103 Transaction Parameters Configurator</p>
+          <p className="text-sm text-slate-500 font-mono tracking-wider uppercase">MT103 Transaction Parameters Configurator</p>
         </div>
       </div>
 
       {/* SENDER (INSTITUTION) DETAILS */}
       <div className={sectionClass}>
-        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+        <h3 className="text-base font-bold text-slate-200 flex items-center gap-2 mb-1">
           <span>🏛️</span> SENDER (INSTITUTION) DETAILS
         </h3>
-        <p className="text-[10px] text-slate-500 italic mb-4">F50A/F52A: Account with Institution / Sender Details</p>
+        <p className="text-sm text-slate-500 italic mb-4">F50A/F52A: Account with Institution / Sender Details</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>
@@ -163,10 +163,10 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
 
       {/* RECEIVER BANK DETAILS */}
       <div className={sectionClass}>
-        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+        <h3 className="text-base font-bold text-slate-200 flex items-center gap-2 mb-1">
           <span>🏦</span> RECEIVER BANK DETAILS
         </h3>
-        <p className="text-[10px] text-slate-500 italic mb-4">F57A: Receiver Institution / Correspondent Bank</p>
+        <p className="text-sm text-slate-500 italic mb-4">F57A: Receiver Institution / Correspondent Bank</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Bank Name</label>
@@ -203,10 +203,10 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
 
       {/* BENEFICIARY CUSTOMER DETAILS */}
       <div className={sectionClass}>
-        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+        <h3 className="text-base font-bold text-slate-200 flex items-center gap-2 mb-1">
           <span>👤</span> BENEFICIARY CUSTOMER DETAILS
         </h3>
-        <p className="text-[10px] text-slate-500 italic mb-4">F59: Beneficiary Customer Name and Address</p>
+        <p className="text-sm text-slate-500 italic mb-4">F59: Beneficiary Customer Name and Address</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>
@@ -269,10 +269,10 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
 
       {/* TRANSACTION DETAILS */}
       <div className={sectionClass}>
-        <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2 mb-1">
+        <h3 className="text-base font-bold text-slate-200 flex items-center gap-2 mb-1">
           <span>📝</span> TRANSACTION DETAILS
         </h3>
-        <p className="text-[10px] text-slate-500 italic mb-4">SWIFT Fields: F20, F21, F23B, F32A, F33B, F70, F71A, F77B</p>
+        <p className="text-sm text-slate-500 italic mb-4">SWIFT Fields: F20, F21, F23B, F32A, F33B, F70, F71A, F77B</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>{"Sender's Reference (F20)"}</label>
@@ -310,7 +310,7 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
               <label className={labelClass}>Value Date</label>
               <input
                 type="date"
-                className="w-full px-3 py-2 bg-slate-950 border-2 border-slate-800 focus:border-red-600 rounded-xl text-xs text-slate-100 outline-none focus:ring-2 focus:ring-red-900/30"
+                className="w-full px-3 py-2 bg-slate-950 border-2 border-slate-800 focus:border-red-600 rounded-xl text-sm text-slate-100 outline-none focus:ring-2 focus:ring-red-900/30"
                 value={formData.transaction.valueDate}
                 onChange={(e) => handleChange("transaction", "valueDate", e.target.value)}
               />
@@ -393,7 +393,7 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
         <button
           type="button"
           onClick={() => setShowTechnical(!showTechnical)}
-          className="flex justify-between items-center w-full text-slate-300 hover:text-white font-bold text-sm tracking-wide transition-colors outline-none"
+          className="flex justify-between items-center w-full text-slate-300 hover:text-white font-bold text-base tracking-wide transition-colors outline-none"
         >
           <span>⚙️ TECHNICAL SWIFT SETTINGS</span>
           <span>{showTechnical ? "▲ Hide" : "▼ Show"}</span>
@@ -500,7 +500,7 @@ const HSBCForm = ({ onSubmit, initialData = {} }) => {
       {/* SUBMIT BUTTON */}
       <button
         type="submit"
-        className="w-full py-4 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-550 hover:to-purple-550 text-white rounded-2xl font-bold text-xs tracking-widest shadow-xl shadow-cyan-500/10 hover:shadow-cyan-500/25 transition-all duration-300 transform active:scale-[0.98] uppercase"
+        className="w-full py-4 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-550 hover:to-purple-550 text-white rounded-2xl font-bold text-sm tracking-widest shadow-xl shadow-cyan-500/10 hover:shadow-cyan-500/25 transition-all duration-300 transform active:scale-[0.98] uppercase"
       >
         ⚡ BROADCAST TRANSACTION NODE & GENERATE MT103
       </button>

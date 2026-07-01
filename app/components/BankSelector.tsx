@@ -26,14 +26,14 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
   };
 
   return (
-    <div className="bg-slate-900/30 border border-slate-850 rounded-3xl p-6 shadow-2xl mb-8 backdrop-blur-md relative overflow-hidden">
+    <div className="bg-[#020617]/40 border border-white/5 rounded-[2rem] p-6 lg:p-8 shadow-[0_0_40px_rgba(0,0,0,0.5)] mb-10 backdrop-blur-3xl relative overflow-hidden">
       {/* Background neon visual line */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
       
-      <h3 className="text-xs font-bold tracking-widest text-slate-400 uppercase mb-5 flex items-center gap-2 font-mono">
+      <h3 className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-6 flex items-center gap-2 font-outfit">
         <span>⛓️</span> [ ACTIVE SWIFT GATEWAY NODES ]
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
         {banks.map((bank) => {
           const isSelected = selectedBank === bank.id;
           return (
@@ -41,35 +41,35 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
               key={bank.id}
               type="button"
               onClick={() => onSelectBank(bank.id)}
-              className={`flex flex-col items-center justify-between p-5 rounded-2xl border text-center transition-all duration-300 relative overflow-hidden group font-mono ${
+              className={`flex flex-col items-center justify-between p-5 rounded-[1.5rem] border text-center transition-all duration-300 relative overflow-hidden group font-sans ${
                 isSelected
-                  ? "bg-slate-950/80 border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.15)] -translate-y-1"
-                  : "bg-slate-950/30 border-slate-900 hover:border-slate-800 hover:bg-slate-900/40 hover:-translate-y-0.5"
+                  ? "bg-slate-900/80 border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)] -translate-y-1"
+                  : "bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/10 hover:-translate-y-1"
               }`}
             >
               {/* Top Accent Dot */}
               <div
-                className={`absolute top-2 right-2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  isSelected ? "bg-cyan-400 animate-pulse" : "bg-slate-800"
+                className={`absolute top-4 right-4 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  isSelected ? "bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" : "bg-slate-700"
                 }`}
               />
 
               {/* Bank Initials Node Avatar */}
               <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-sm tracking-wider mb-4 shadow-md uppercase transition-all duration-300 group-hover:scale-105 ${getBadgeStyle(
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-sm tracking-wider mt-2 mb-4 shadow-md uppercase transition-all duration-300 group-hover:scale-110 font-outfit ${getBadgeStyle(
                   bank.id
-                )} ${isSelected ? "ring-1 ring-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.05)]" : ""}`}
+                )} ${isSelected ? "ring-2 ring-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]" : ""}`}
               >
                 {bank.id.substring(0, 3)}
               </div>
 
               {/* Bank Name */}
-              <span className="text-xs font-bold text-slate-200 block truncate w-full tracking-wide">
+              <span className={`text-xs font-semibold block truncate w-full tracking-wide transition-colors font-outfit ${isSelected ? "text-cyan-50" : "text-slate-300 group-hover:text-white"}`}>
                 {bank.name.toUpperCase()}
               </span>
 
               {/* Swift Code */}
-              <span className="text-[9px] font-mono text-slate-500 block mt-1.5 tracking-wider bg-slate-950/60 px-2 py-0.5 rounded-md border border-slate-900/60">
+              <span className="text-[10px] font-mono text-slate-500 block mt-2 tracking-widest px-2.5 py-1 rounded-lg border border-white/5 bg-black/20">
                 {bank.code}
               </span>
             </button>
