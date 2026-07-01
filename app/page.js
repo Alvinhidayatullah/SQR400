@@ -18,6 +18,8 @@ export default function Home() {
   const [transactionData, setTransactionData] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
+  const [stats, setStats] = useState({ onlineCount: 1, activeCount: 1 });
+
   useEffect(() => {
     // Route guard check
     const storedSession = localStorage.getItem("sqr400_session");
@@ -28,6 +30,24 @@ export default function Home() {
     setSession(JSON.parse(storedSession));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  useEffect(() => {
+    if (!session) return;
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(`/api/stats?username=${encodeURIComponent(session.username)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch stats", err);
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000);
+    return () => clearInterval(interval);
+  }, [session]);
 
   const handleSubmit = async (data) => {
     setTransactionData(data);
@@ -121,8 +141,12 @@ export default function Home() {
               <span className="text-slate-200">SWIFT_MAINNET</span>
             </div>
             <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
-              <span className="text-slate-550">GAS:</span>{" "}
-              <span className="text-purple-400 font-bold">0 GWEI</span>
+              <span className="text-slate-550">User Online:</span>{" "}
+              <span className="text-cyan-400 font-bold">{stats.onlineCount}</span>
+            </div>
+            <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
+              <span className="text-slate-550">user active:</span>{" "}
+              <span className="text-purple-400 font-bold">{stats.activeCount}</span>
             </div>
           </div>
 

@@ -2,6 +2,31 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
+// Globally tracked online users: Map of username -> lastActiveTimestamp
+if (typeof global.onlineUsers === "undefined") {
+  global.onlineUsers = new Map();
+}
+
+export const trackOnlineUser = (username) => {
+  if (!username) return;
+  const normalized = normalizeUsername(username);
+  global.onlineUsers.set(normalized, Date.now());
+};
+
+export const getOnlineUsersCount = () => {
+  const now = Date.now();
+  const timeout = 5 * 60 * 1000; // 5 minutes
+  let count = 0;
+  for (const [user, timestamp] of global.onlineUsers.entries()) {
+    if (now - timestamp < timeout) {
+      count++;
+    } else {
+      global.onlineUsers.delete(user);
+    }
+  }
+  return Math.max(1, count);
+};
+
 // Ensure data folder exists
 const dbDir = path.join(process.cwd(), "data");
 const dbPath = path.join(dbDir, "db.json");

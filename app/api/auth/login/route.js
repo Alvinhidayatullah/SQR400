@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readDb, normalizeUsername, verifyPassword, getAdminVerifyToken } from "../../../utils/db";
+import { readDb, normalizeUsername, verifyPassword, getAdminVerifyToken, trackOnlineUser } from "../../../utils/db";
 
 // Simple temporary rate limiter to mitigate login brute-force attacks (OWASP A07:2021)
 const loginAttempts = new Map();
@@ -64,6 +64,9 @@ export async function POST(req) {
 
     // Reset rate limiter on successful login
     loginAttempts.delete(ip);
+
+    // Track online user session
+    trackOnlineUser(user.username);
 
     // If logging in as admin, supply the server-verified validation token
     const token = user.role === "admin" ? getAdminVerifyToken() : null;

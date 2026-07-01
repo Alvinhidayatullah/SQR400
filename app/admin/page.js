@@ -11,6 +11,25 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [searchUser, setSearchUser] = useState("");
   const [flushConfirm, setFlushConfirm] = useState(false);
+  const [stats, setStats] = useState({ onlineCount: 1, activeCount: 1 });
+
+  useEffect(() => {
+    if (!session) return;
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(`/api/stats?username=${encodeURIComponent(session.username)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch stats", err);
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000);
+    return () => clearInterval(interval);
+  }, [session]);
 
   useEffect(() => {
     // Session Guard
@@ -136,6 +155,14 @@ export default function AdminPage() {
           <div className="flex flex-wrap items-center gap-3 lg:gap-4 text-[10px] text-slate-400 font-mono">
             <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
               <span className="text-slate-550">ROLE:</span> <span className="text-red-400 font-bold">VALIDATOR_ADMIN</span>
+            </div>
+            <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
+              <span className="text-slate-550">User Online:</span>{" "}
+              <span className="text-cyan-400 font-bold">{stats.onlineCount}</span>
+            </div>
+            <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
+              <span className="text-slate-550">user active:</span>{" "}
+              <span className="text-purple-400 font-bold">{stats.activeCount}</span>
             </div>
           </div>
 

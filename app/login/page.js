@@ -11,11 +11,29 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [stats, setStats] = useState({ onlineCount: 1, activeCount: 1 });
 
   useEffect(() => {
     setError("");
     setSuccess("");
   }, [isSignUp]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch("/api/stats");
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch stats", err);
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,7 +92,9 @@ export default function LoginPage() {
           <span>MAINNET: ONLINE</span>
         </div>
         <div className="w-px h-3 bg-slate-800" />
-        <div>GAS: 0 GWEI</div>
+        <div>User Online : {stats.onlineCount}</div>
+        <div className="w-px h-3 bg-slate-800" />
+        <div>user active : {stats.activeCount}</div>
       </div>
 
       {/* Glassmorphic Portal Box */}
