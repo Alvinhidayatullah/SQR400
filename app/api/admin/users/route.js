@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb, normalizeUsername } from "../../../utils/db";
+import { readDb, writeDb, normalizeUsername, getAdminVerifyToken } from "../../../utils/db";
+
+// Validate custom Admin Session token to prevent Broken Access Control (OWASP A01:2021)
+const verifyAdminSession = (req) => {
+  const token = req.headers.get("x-admin-token");
+  return token === getAdminVerifyToken();
+};
 
 // GET user list with aggregated traffic count
-export async function GET() {
+export async function GET(req) {
   try {
+    if (!verifyAdminSession(req)) {
+      return NextResponse.json(
+        { error: "Access denied. Unauthorized request." },
+        { status: 403 }
+      );
+    }
+
     const db = readDb();
     const usersWithTraffic = db.users
       .filter((u) => u.role !== "admin")
@@ -31,6 +44,13 @@ export async function GET() {
 // DELETE a specific user
 export async function DELETE(req) {
   try {
+    if (!verifyAdminSession(req)) {
+      return NextResponse.json(
+        { error: "Access denied. Unauthorized request." },
+        { status: 403 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const usernameToDelete = searchParams.get("username");
 
@@ -63,10 +83,6 @@ export async function DELETE(req) {
       );
     }
 
-    // Also clean up their traffic if desired, or keep it?
-    // The user said: "bisa hapus user yg terdaftar dan bisa melihat traffic user itu mencetak form, dan itu juga bisa di berihkan semuanya"
-    // So cleaning up user logs is covered under "clear traffic" action, we can keep the records or filter them out.
-    
     writeDb(db);
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -38,29 +38,24 @@ html, body {
 }
 
 @media print {
-  html, body, main {
-    background: white !important;
+  /* Collapse all outer layout wrappers to prevent blank pages from parent padding/borders */
+  html, body, main, main *, div, section, article {
     margin: 0 !important;
     padding: 0 !important;
-    width: 210mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    width: auto !important;
     height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
   }
 
   .no-print {
     display: none !important;
   }
 
-  /* Reset outer layout wrappers, ensuring they do not occupy print space */
-  main > div,
-  main > div > div {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    width: 100% !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
+  /* Force display A4 print page styles */
   .print-page {
     display: block !important;
     width: 210mm !important;
@@ -69,13 +64,19 @@ html, body {
     max-height: 297mm !important;
     padding: 15mm !important;
     margin: 0 auto !important;
-    border: none !important;
-    box-shadow: none !important;
     page-break-after: always !important;
     break-after: page !important;
     background: white !important;
     box-sizing: border-box !important;
     position: relative !important;
+  }
+
+  .print-page * {
+    background: transparent !important;
+  }
+
+  .print-page rect {
+    fill: black !important;
   }
 
   .print-page:last-child {

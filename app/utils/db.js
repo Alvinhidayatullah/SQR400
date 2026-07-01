@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 
 // Ensure data folder exists
 const dbDir = path.join(process.cwd(), "data");
@@ -15,12 +16,45 @@ export const normalizeUsername = (username) => {
   return username.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 };
 
+// Sanitization function against XSS injections (OWASP A03:2021)
+export const sanitizeInput = (str) => {
+  if (typeof str !== "string") return str;
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;");
+};
+
+// Secure PBKDF2 hashing wrapper (OWASP A02:2021)
+export const hashPassword = (password, salt) => {
+  const userSalt = salt || crypto.randomBytes(16).toString("hex");
+  const hash = crypto.pbkdf2Sync(password, userSalt, 1000, 64, "sha256").toString("hex");
+  return { hash, salt: userSalt };
+};
+
+// Verify password match
+export const verifyPassword = (password, storedHash, storedSalt) => {
+  const hash = crypto.pbkdf2Sync(password, storedSalt, 1000, 64, "sha256").toString("hex");
+  return hash === storedHash;
+};
+
+// Dynamic generation of an Admin Security Session Validation Token
+export const getAdminVerifyToken = () => {
+  return crypto.createHmac("sha256", "SQR400_ADMIN_SECURE_SALT_99").update("vinz_admin_session").digest("hex");
+};
+
 const getInitialData = () => {
+  // Pre-seed hashed admin credentials securely
+  const { hash, salt } = hashPassword("vinzsqr400");
   return {
     users: [
       {
         username: "vinz_admin",
-        password: "vinzsqr400",
+        passwordHash: hash,
+        passwordSalt: salt,
         role: "admin",
         registeredAt: new Date().toISOString(),
       },
@@ -37,7 +71,26 @@ export const readDb = () => {
       return initial;
     }
     const data = fs.readFileSync(dbPath, "utf8");
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+
+    // Auto migration fallback if old database formats exist
+    let mutated = false;
+    parsed.users = parsed.users.map((u) => {
+      if (u.password && !u.passwordHash) {
+        const { hash, salt } = hashPassword(u.password);
+        u.passwordHash = hash;
+        u.passwordSalt = salt;
+        delete u.password;
+        mutated = true;
+      }
+      return u;
+    });
+
+    if (mutated) {
+      fs.writeFileSync(dbPath, JSON.stringify(parsed, null, 2), "utf8");
+    }
+
+    return parsed;
   } catch (error) {
     console.error("Error reading db.json, returning default:", error);
     return getInitialData();

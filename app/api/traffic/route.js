@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb } from "../../utils/db";
+import { readDb, writeDb, sanitizeInput } from "../../utils/db";
 
 export async function POST(req) {
   try {
@@ -14,14 +14,16 @@ export async function POST(req) {
     }
 
     const db = readDb();
+    
+    // Sanitize values to prevent XSS vulnerability (OWASP A03:2021)
     const newLog = {
       id: Date.now() + Math.random().toString(36).substr(2, 5),
       timestamp: new Date().toISOString(),
-      username: username,
-      bank: bank,
-      amount: amount || "0.00",
-      currency: currency || "EUR",
-      senderRef: senderRef || "N/A",
+      username: sanitizeInput(username),
+      bank: sanitizeInput(bank),
+      amount: sanitizeInput(amount || "0.00"),
+      currency: sanitizeInput(currency || "EUR"),
+      senderRef: sanitizeInput(senderRef || "N/A"),
     };
 
     db.traffic.push(newLog);

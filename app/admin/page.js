@@ -20,23 +20,30 @@ export default function AdminPage() {
       return;
     }
     const parsed = JSON.parse(storedSession);
-    if (parsed.role !== "admin") {
+    if (parsed.role !== "admin" || !parsed.adminToken) {
       router.push("/");
       return;
     }
     setSession(parsed);
-    fetchData();
+    fetchData(parsed.adminToken);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
-  const fetchData = async () => {
+  const fetchData = async (adminToken) => {
+    const token = adminToken || (session && session.adminToken);
+    if (!token) return;
+
     setLoading(true);
     try {
-      const usersRes = await fetch("/api/admin/users");
+      const usersRes = await fetch("/api/admin/users", {
+        headers: { "x-admin-token": token }
+      });
       const usersData = await usersRes.json();
       if (usersRes.ok) setUsers(usersData.users);
 
-      const trafficRes = await fetch("/api/admin/traffic");
+      const trafficRes = await fetch("/api/admin/traffic", {
+        headers: { "x-admin-token": token }
+      });
       const trafficData = await trafficRes.json();
       if (trafficRes.ok) setTraffic(trafficData.traffic);
     } catch (err) {
@@ -47,12 +54,14 @@ export default function AdminPage() {
   };
 
   const handleDeleteUser = async (username) => {
+    if (!session?.adminToken) return;
     if (!confirm(`Are you sure you want to permanently delete user "${username}"?`)) {
       return;
     }
     try {
       const res = await fetch(`/api/admin/users?username=${encodeURIComponent(username)}`, {
         method: "DELETE",
+        headers: { "x-admin-token": session.adminToken }
       });
       if (res.ok) {
         fetchData();
@@ -66,8 +75,12 @@ export default function AdminPage() {
   };
 
   const handleClearTraffic = async () => {
+    if (!session?.adminToken) return;
     try {
-      const res = await fetch("/api/admin/traffic", { method: "DELETE" });
+      const res = await fetch("/api/admin/traffic", {
+        method: "DELETE",
+        headers: { "x-admin-token": session.adminToken }
+      });
       if (res.ok) {
         setFlushConfirm(false);
         fetchData();
@@ -217,7 +230,7 @@ export default function AdminPage() {
                 {/* Log Screen */}
                 <div className="bg-slate-950 border border-slate-850 rounded-2xl p-4 overflow-hidden relative shadow-inner">
                   {filteredTraffic.length === 0 ? (
-                    <div className="text-center py-12 text-slate-500 text-xs font-mono">
+                    <div className="text-center py-12 text-slate-505 text-xs font-mono">
                       NO TRAFFIC RECORDS DETECTED
                     </div>
                   ) : (

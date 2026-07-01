@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "username": "vinz_admin",
+      "password": "vinzsqr400",
+      "role": "admin",
+      "registeredAt": "2026-07-01T11:15:21.346Z"
+    }
+  ],
+  "traffic": []
+}

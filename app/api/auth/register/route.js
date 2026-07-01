@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb, normalizeUsername } from "../../../utils/db";
+import { readDb, writeDb, normalizeUsername, hashPassword, sanitizeInput } from "../../../utils/db";
 
 export async function POST(req) {
   try {
@@ -13,7 +13,7 @@ export async function POST(req) {
       );
     }
 
-    const trimmedUsername = username.trim();
+    const trimmedUsername = sanitizeInput(username.trim());
     if (trimmedUsername.length < 3) {
       return NextResponse.json(
         { error: "Username must be at least 3 characters" },
@@ -31,7 +31,6 @@ export async function POST(req) {
     const db = readDb();
     const normalizedInput = normalizeUsername(trimmedUsername);
 
-    // Prevent matching default admin as well (vinz_admin normalized is vinzadmin)
     const exists = db.users.some(
       (u) => normalizeUsername(u.username) === normalizedInput
     );
@@ -43,9 +42,13 @@ export async function POST(req) {
       );
     }
 
+    // Securely hash password using PBKDF2 with unique salt (OWASP A02:2021)
+    const { hash, salt } = hashPassword(password);
+
     const newUser = {
       username: trimmedUsername,
-      password: password,
+      passwordHash: hash,
+      passwordSalt: salt,
       role: "user",
       registeredAt: new Date().toISOString(),
     };

@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb } from "../../../utils/db";
+import { readDb, writeDb, getAdminVerifyToken } from "../../../utils/db";
+
+// Validate custom Admin Session token to prevent Broken Access Control (OWASP A01:2021)
+const verifyAdminSession = (req) => {
+  const token = req.headers.get("x-admin-token");
+  return token === getAdminVerifyToken();
+};
 
 // GET all traffic logs (newest first)
-export async function GET() {
+export async function GET(req) {
   try {
+    if (!verifyAdminSession(req)) {
+      return NextResponse.json(
+        { error: "Access denied. Unauthorized request." },
+        { status: 403 }
+      );
+    }
+
     const db = readDb();
     const sortedTraffic = [...db.traffic].sort(
       (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
@@ -19,8 +32,15 @@ export async function GET() {
 }
 
 // DELETE (flush) all traffic logs
-export async function DELETE() {
+export async function DELETE(req) {
   try {
+    if (!verifyAdminSession(req)) {
+      return NextResponse.json(
+        { error: "Access denied. Unauthorized request." },
+        { status: 403 }
+      );
+    }
+
     const db = readDb();
     db.traffic = [];
     writeDb(db);

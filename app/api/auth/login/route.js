@@ -1,8 +1,34 @@
 import { NextResponse } from "next/server";
-import { readDb, normalizeUsername } from "../../../utils/db";
+import { readDb, normalizeUsername, verifyPassword, getAdminVerifyToken } from "../../../utils/db";
+
+// Simple temporary rate limiter to mitigate login brute-force attacks (OWASP A07:2021)
+const loginAttempts = new Map();
+const LIMIT = 10;
+const WINDOW = 60 * 1000; // 1 minute window
 
 export async function POST(req) {
   try {
+    const ip = req.headers.get("x-forwarded-for") || "local";
+    const now = Date.now();
+    
+    // Rate limit check
+    if (loginAttempts.has(ip)) {
+      const record = loginAttempts.get(ip);
+      if (now - record.resetTime < WINDOW) {
+        if (record.count >= LIMIT) {
+          return NextResponse.json(
+            { error: "Too many login attempts. Please wait 1 minute." },
+            { status: 429 }
+          );
+        }
+        record.count++;
+      } else {
+        loginAttempts.set(ip, { count: 1, resetTime: now });
+      }
+    } else {
+      loginAttempts.set(ip, { count: 1, resetTime: now });
+    }
+
     const body = await req.json();
     const { username, password } = body;
 
@@ -20,18 +46,34 @@ export async function POST(req) {
       (u) => normalizeUsername(u.username) === normalizedInput
     );
 
-    if (!user || user.password !== password) {
+    if (!user) {
       return NextResponse.json(
         { error: "Invalid username or password" },
         { status: 401 }
       );
     }
 
+    // Verify PBKDF2 Password Hash match
+    const isValid = verifyPassword(password, user.passwordHash, user.passwordSalt);
+    if (!isValid) {
+      return NextResponse.json(
+        { error: "Invalid username or password" },
+        { status: 401 }
+      );
+    }
+
+    // Reset rate limiter on successful login
+    loginAttempts.delete(ip);
+
+    // If logging in as admin, supply the server-verified validation token
+    const token = user.role === "admin" ? getAdminVerifyToken() : null;
+
     return NextResponse.json({
       success: true,
       user: {
         username: user.username,
         role: user.role,
+        adminToken: token,
       },
     });
   } catch (error) {
