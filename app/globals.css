@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Set screen background to prevent white background on overscroll */
+html, body {
+  background-color: #020617 !important;
+}
+
 /* Custom styles */
 .mt103-line {
   display: flex;
