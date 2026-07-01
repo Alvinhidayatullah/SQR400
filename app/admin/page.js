@@ -11,15 +11,6 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [searchUser, setSearchUser] = useState("");
   const [flushConfirm, setFlushConfirm] = useState(false);
-  const [blockNumber, setBlockNumber] = useState(1982903);
-
-  useEffect(() => {
-    // Live block count updates
-    const interval = setInterval(() => {
-      setBlockNumber((prev) => prev + Math.floor(Math.random() * 2) + 1);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     // Session Guard
@@ -116,11 +107,11 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4 md:px-8 font-mono antialiased relative overflow-hidden select-none">
       {/* Mesh Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none no-print" />
 
       {/* Cyber Ambient Spotlights */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-red-500/5 blur-[150px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none no-print" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-red-500/5 blur-[150px] pointer-events-none no-print" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
@@ -145,9 +136,6 @@ export default function AdminPage() {
           <div className="flex flex-wrap items-center gap-3 lg:gap-4 text-[10px] text-slate-400 font-mono">
             <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
               <span className="text-slate-550">ROLE:</span> <span className="text-red-400 font-bold">VALIDATOR_ADMIN</span>
-            </div>
-            <div className="bg-slate-950/60 border border-slate-850 px-3.5 py-1.5 rounded-xl">
-              <span className="text-slate-550">BLOCK:</span> <span className="text-cyan-400 font-bold">#{blockNumber}</span>
             </div>
           </div>
 

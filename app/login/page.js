@@ -11,15 +11,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [blockNumber, setBlockNumber] = useState(1982903);
-
-  // Live Web3 block ticks simulation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBlockNumber((prev) => prev + Math.floor(Math.random() * 2) + 1);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     setError("");
@@ -69,27 +60,25 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden font-mono select-none">
       {/* Mesh Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40 pointer-events-none no-print" />
 
       {/* Cyber Ambient Spotlights */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[150px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none no-print" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[150px] pointer-events-none no-print" />
 
       {/* Web3 Node Statistics Bar */}
-      <div className="mb-6 bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-full px-5 py-2 flex items-center gap-6 text-[10px] text-slate-400 shadow-xl relative z-10">
+      <div className="mb-6 bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-full px-5 py-2 flex items-center gap-6 text-[10px] text-slate-400 shadow-xl relative z-10 no-print">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
           <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
           <span>MAINNET: ONLINE</span>
         </div>
         <div className="w-px h-3 bg-slate-800" />
-        <div>BLOCK: #{blockNumber}</div>
-        <div className="w-px h-3 bg-slate-800" />
         <div>GAS: 0 GWEI</div>
       </div>
 
       {/* Glassmorphic Portal Box */}
-      <div className="w-full max-w-md bg-slate-900/30 backdrop-blur-2xl border border-slate-850 rounded-3xl p-8 shadow-2xl relative z-10">
+      <div className="w-full max-w-md bg-slate-900/30 backdrop-blur-2xl border border-slate-850 rounded-3xl p-8 shadow-2xl relative z-10 no-print">
         {/* Glow Line Indicator */}
         <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
 
@@ -149,22 +138,22 @@ export default function LoginPage() {
         {/* Auth Inputs Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block mb-1.5">
-              [ NODE USERNAME ]
+            <label className="text-[10px] font-bold text-slate-450 uppercase tracking-widest block mb-1.5 font-sans">
+              Username
             </label>
             <input
               type="text"
               autoComplete="off"
               className="w-full px-4 py-3 bg-slate-950/80 border border-slate-850 focus:border-cyan-500 rounded-xl text-sm text-slate-100 placeholder-slate-650 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-500/10 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)]"
-              placeholder="Enter node identifier"
+              placeholder="Enter account username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block mb-1.5">
-              [ CRYPTO KEY PASSCODE ]
+            <label className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block mb-1.5 font-sans">
+              Password
             </label>
             <input
               type="password"
