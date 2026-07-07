@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 export default function AdminPage() {
   const router = useRouter();
-  const [session, setSession] = useState(null);
+  const { data: sessionData, status } = useSession();
+  const session = sessionData?.user as any;
   const [users, setUsers] = useState([]);
   const [traffic, setTraffic] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +19,8 @@ export default function AdminPage() {
     if (!session) return;
     const fetchStats = async () => {
       try {
-        const res = await fetch(`/api/stats?username=${encodeURIComponent(session.username)}`);
+        const currentUsername = session.name || session.username;
+        const res = await fetch(`/api/stats?username=${encodeURIComponent(currentUsername)}`);
         if (res.ok) {
           const data = await res.json();
           setStats(data);
@@ -32,21 +35,20 @@ export default function AdminPage() {
   }, [session]);
 
   useEffect(() => {
-    // Session Guard
-    const storedSession = localStorage.getItem("sqr400_session");
-    if (!storedSession) {
+    if (status === "unauthenticated") {
       router.push("/login");
       return;
     }
-    const parsed = JSON.parse(storedSession);
-    if (parsed.role !== "admin" || !parsed.adminToken) {
-      router.push("/");
-      return;
+    
+    if (session) {
+      if (session.role !== "admin" || !session.adminToken) {
+        router.push("/");
+        return;
+      }
+      fetchData(session.adminToken);
     }
-    setSession(parsed);
-    fetchData(parsed.adminToken);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
+  }, [status, session, router]);
 
   const fetchData = async (adminToken?: any) => {
     const token = adminToken || (session && session.adminToken);
@@ -111,8 +113,8 @@ export default function AdminPage() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("sqr400_session");
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
     router.push("/login");
   };
 
@@ -121,7 +123,7 @@ export default function AdminPage() {
     t.username.toLowerCase().includes(searchUser.toLowerCase())
   );
 
-  if (!session) return null;
+  if (status === "loading" || !session) return null;
 
   return (
     <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none">
@@ -186,7 +188,7 @@ export default function AdminPage() {
               <div className="px-4 py-2 flex items-center gap-2 group cursor-default">
                 <span className="text-[12px]">🔑</span>
                 <span className="text-[11px] font-bold text-slate-300 tracking-widest transition-colors">
-                  {session.username.length > 10 ? `${session.username.substring(0, 7)}...` : session.username}
+                  {(session.name || session.username).length > 10 ? `${(session.name || session.username).substring(0, 7)}...` : (session.name || session.username)}
                 </span>
               </div>
               

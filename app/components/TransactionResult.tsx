@@ -1,11 +1,16 @@
 "use client";
 
 import HSBCPrintout from "../banks/hsbc/HSBCPrintout";
+import DeutschePrintout from "../banks/deutsche/DeutschePrintout";
 
 const TransactionResult = ({ data, onBack }) => {
   // Cek bank ID, render sesuai bank
   if (data?.bankId === "hsbc") {
     return <HSBCPrintout data={data} onBack={onBack} />;
+  }
+  
+  if (data?.bankId === "deutsche") {
+    return <DeutschePrintout data={data} onBack={onBack} />;
   }
 
   // Default fallback untuk bank lain (sementara)

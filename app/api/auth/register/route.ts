@@ -1,21 +1,42 @@
 import { NextResponse } from "next/server";
-import { query, normalizeUsername, hashPassword, sanitizeInput } from "../../../utils/db";
+import { query, normalizeUsername, hashPassword } from "@/app/utils/db";
+import { authSchema } from "@/app/utils/schema";
+import { LRUCache } from "lru-cache";
 
-export async function POST(req: any) {
+// Rate limiter setup: max 10 requests per minute per IP
+const rateLimit = new LRUCache({
+  max: 100,
+  ttl: 60 * 1000, // 1 minute
+});
+
+export async function POST(req: Request) {
   try {
+    // Rate Limiting
+    const ip = req.headers.get("x-forwarded-for") || "unknown";
+    const tokenCount = (rateLimit.get(ip) as number[]) || [0];
+    if (tokenCount[0] === 0) {
+      rateLimit.set(ip, [1]);
+    } else {
+      tokenCount[0] += 1;
+      rateLimit.set(ip, tokenCount);
+    }
+
+    if (tokenCount[0] > 10) {
+      return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const body = await req.json();
-    const { username, password } = body;
 
-    if (!username || !password) {
-      return NextResponse.json({ error: "Username and password are required" }, { status: 400 });
+    // Zod Validation
+    const parsed = authSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
     }
 
-    if (username.length < 4 || password.length < 6) {
-      return NextResponse.json({ error: "Username must be > 3 chars and password > 5 chars" }, { status: 400 });
-    }
-
+    const { username, password } = parsed.data;
     const normalizedUsername = normalizeUsername(username);
 
+    // Business Logic Validation
     if (normalizedUsername.includes("admin")) {
       return NextResponse.json({ error: "Reserved identity keyword detected" }, { status: 403 });
     }

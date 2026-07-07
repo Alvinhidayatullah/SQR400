@@ -7,6 +7,7 @@ const nextConfig = {
     minimumCacheTTL: 3600,
     deviceSizes: [640, 750, 828, 1080, 1200],
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;

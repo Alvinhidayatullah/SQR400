@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import BankSelector from "./components/BankSelector";
 import HSBCForm from "./banks/hsbc/HSBCForm";
 import BNIForm from "./banks/bni/BNIForm";
@@ -13,7 +14,8 @@ import TransactionResult from "./components/TransactionResult";
 
 export default function Home() {
   const router = useRouter();
-  const [session, setSession] = useState(null);
+  const { data: sessionData, status } = useSession();
+  const session = sessionData?.user as any;
   const [selectedBank, setSelectedBank] = useState("hsbc");
   const [transactionData, setTransactionData] = useState(null);
   const [showResult, setShowResult] = useState(false);
@@ -29,23 +31,20 @@ export default function Home() {
   const [settingsLoading, setSettingsLoading] = useState(false);
 
   useEffect(() => {
-    // Route guard check
-    const storedSession = localStorage.getItem("sqr400_session");
-    if (!storedSession) {
+    if (status === "unauthenticated") {
       router.push("/login");
-      return;
     }
-    const parsed = JSON.parse(storedSession);
-    setSession(parsed);
-    setSettingsUsername(parsed.username);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
+    if (session) {
+      setSettingsUsername(session.name || session.username);
+    }
+  }, [status, session, router]);
 
   useEffect(() => {
     if (!session) return;
     const fetchStats = async () => {
       try {
-        const res = await fetch(`/api/stats?username=${encodeURIComponent(session.username)}`);
+        const currentUsername = session.name || session.username;
+        const res = await fetch(`/api/stats?username=${encodeURIComponent(currentUsername)}`);
         if (res.ok) {
           const data = await res.json();
           setStats(data);
@@ -71,7 +70,7 @@ export default function Home() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            username: session.username,
+            username: session.name || session.username,
             bank: data.selectedBank,
             amount: data.transaction?.amount || "0",
             currency: data.transaction?.currency || "EUR",
@@ -110,7 +109,7 @@ export default function Home() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          currentUsername: session.username,
+          currentUsername: session.name || session.username,
           currentPassword: settingsCurrentPassword,
           newUsername: settingsUsername,
           newPassword: settingsNewPassword || null
@@ -124,10 +123,8 @@ export default function Home() {
 
       setSettingsSuccess("Profile settings successfully updated! Syncing node...");
       
-      // Update session locally
-      const updatedSession = { ...session, username: data.username };
-      localStorage.setItem("sqr400_session", JSON.stringify(updatedSession));
-      setSession(updatedSession);
+      // Since NextAuth session handles JWT, we don't manually set localStorage anymore
+      // We could trigger session update here if needed.
 
       // Clean inputs
       setSettingsCurrentPassword("");
@@ -146,8 +143,8 @@ export default function Home() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("sqr400_session");
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
     router.push("/login");
   };
 
@@ -170,7 +167,7 @@ export default function Home() {
     }
   };
 
-  if (!session) return null; // Avoid flashing content before redirect
+  if (status === "loading" || !session) return null; // Avoid flashing content before redirect
 
   return (
     <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none">
@@ -251,7 +248,7 @@ export default function Home() {
               >
                 <span className="text-[12px]">🔑</span>
                 <span className="text-[11px] font-bold text-slate-300 tracking-widest group-hover:text-white transition-colors">
-                  {session.username.length > 10 ? `${session.username.substring(0, 7)}...` : session.username}
+                  {(session.name || session.username).length > 10 ? `${(session.name || session.username).substring(0, 7)}...` : (session.name || session.username)}
                 </span>
                 <span className="text-[10px] text-slate-500 group-hover:text-cyan-400 transition-colors ml-1">⚙️</span>
               </button>

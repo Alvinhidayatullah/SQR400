@@ -35,40 +35,48 @@ export default function LoginPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
     setLoading(true);
 
-    const endpoint = isSignUp ? "/api/auth/register" : "/api/auth/login";
-
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Portal access denied");
-      }
-
       if (isSignUp) {
+        // Register using custom API route
+        const response = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Registration failed");
+        }
+
         setSuccess("Cryptographic identity verified! Access granted. Proceed to login.");
         setIsSignUp(false);
         setPassword("");
       } else {
-        localStorage.setItem("sqr400_session", JSON.stringify(data.user));
-        if (data.user.role === "admin") {
-          router.push("/admin");
-        } else {
-          router.push("/");
+        // Login using NextAuth
+        const { signIn } = await import("next-auth/react");
+        const result = await signIn("credentials", {
+          username,
+          password,
+          redirect: false,
+        });
+
+        if (result?.error) {
+          throw new Error(result.error || "Portal access denied");
         }
+
+        // Redirect will be handled by middleware, but we can fast-track it here
+        router.push("/");
+        router.refresh();
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
