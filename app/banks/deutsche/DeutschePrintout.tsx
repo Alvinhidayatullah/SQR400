@@ -253,13 +253,12 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-[#0018A8] font-sans font-bold text-[22px] tracking-tight">Deutsche Bank</span>
-                <div className="w-9 h-9 border-[3px] border-[#0018A8] flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24">
-                    <line x1="4" y1="20" x2="20" y2="4" stroke="#0018A8" strokeWidth="4" />
-                  </svg>
-                </div>
+              <div className="flex items-center mt-2">
+                <img 
+                  src="/logos/deutsche-logo.png" 
+                  alt="Deutsche Bank Logo" 
+                  className="h-10 object-contain"
+                />
               </div>
             </div>
             
@@ -269,46 +268,17 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             </pre>
 
             {/* Footer with Signatures & Stamp */}
-            <div className="mt-4 flex flex-col relative w-full h-[180px]">
-              
-              {/* Authorized officer texts */}
-              <div className="font-mono text-[10px] font-bold leading-snug w-3/4 mb-1">
+            <div className="mt-6 flex flex-col w-full">
+              <div className="font-mono text-[10px] font-bold leading-snug w-full mb-2">
                 AUTHORIZED OFFICER 1: MR. JAMES VON MOLTKE, CHIEF FINANCIAL OFFICER (PIN: J78414M )<br/>
                 AUTHORIZED OFFICER 2: MR. CARSTEN LEWERENZ, HEAD OF BUSINESS CUSTOMERS (PIN: 53329)<br/>
                 FOR AND ON BEHALF OF DEUTSCHE BANK AG<br/>
                 TAUNUSANLAGE 12, 60254 FRANKFURT AM MAIN, GERMANY
               </div>
-
-              {/* Box around Deutsche Bank text */}
-              <div className="mt-2 w-[280px] border-[2px] border-blue-800 flex flex-col text-center">
-                <div className="bg-blue-800 text-white text-[7px] font-bold py-[2px] w-full border-b-[2px] border-blue-800 font-sans tracking-wide">
-                  TAUNUSANLAGE-12, 60254 FRANKFURT AM MAIN, GERMANY
-                </div>
-                <div className="flex items-center justify-center gap-2 py-1 bg-white">
-                  <span className="text-[#0018A8] font-sans font-bold text-lg tracking-tight">Deutsche Bank</span>
-                  <div className="w-5 h-5 border-[2px] border-[#0018A8] flex items-center justify-center">
-                    <svg width="12" height="12" viewBox="0 0 24 24">
-                      <line x1="4" y1="20" x2="20" y2="4" stroke="#0018A8" strokeWidth="2.5" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="bg-blue-800 text-white text-[7px] font-bold py-[2px] w-full border-t-[2px] border-blue-800 font-sans tracking-wide">
-                  Tel: +496991000 - Fax: +496991034225
-                </div>
-              </div>
-
-              {/* Right Side Round Stamp Image */}
               <img 
-                src="https://k.top4top.io/p_3840238y21.png" 
-                alt="Deutsche Bank Stamp" 
-                className="absolute right-0 top-[-40px] w-[130px] opacity-90"
-              />
-
-              {/* Long Blue Signature Image */}
-              <img 
-                src="https://k.top4top.io/p_3840okeke1.png" 
-                alt="Authorized Signatures" 
-                className="absolute left-0 bottom-[-10px] w-full h-auto opacity-90 object-contain mix-blend-multiply"
+                src="/logos/deutsche-signatures.png" 
+                alt="Authorized Signatures and Stamps" 
+                className="w-[95%] h-auto object-contain mx-auto mix-blend-multiply"
               />
             </div>
 
@@ -325,13 +295,12 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <Barcode value={senderRef} />
               </div>
               
-              <div className="flex items-center gap-2 mt-2">
-                <span className="text-[#0018A8] font-sans font-bold text-[22px] tracking-tight">Deutsche Bank</span>
-                <div className="w-9 h-9 border-[3px] border-[#0018A8] flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24">
-                    <line x1="4" y1="20" x2="20" y2="4" stroke="#0018A8" strokeWidth="4" />
-                  </svg>
-                </div>
+              <div className="flex items-center mt-2">
+                <img 
+                  src="/logos/deutsche-logo.png" 
+                  alt="Deutsche Bank Logo" 
+                  className="h-10 object-contain"
+                />
               </div>
             </div>
             
@@ -347,37 +316,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             </div>
 
             {/* Footer with Signatures & Stamp */}
-            <div className="mt-4 flex flex-col relative w-full h-[140px]">
-              {/* Box around Deutsche Bank text */}
-              <div className="mt-6 w-[280px] border-[2px] border-blue-800 flex flex-col text-center mx-auto absolute left-1/2 transform -translate-x-1/2 bottom-4">
-                <div className="bg-blue-800 text-white text-[7px] font-bold py-[2px] w-full border-b-[2px] border-blue-800 font-sans tracking-wide">
-                  TAUNUSANLAGE-12, 60254 FRANKFURT AM MAIN, GERMANY
-                </div>
-                <div className="flex items-center justify-center gap-2 py-1 bg-white">
-                  <span className="text-[#0018A8] font-sans font-bold text-lg tracking-tight">Deutsche Bank</span>
-                  <div className="w-5 h-5 border-[2px] border-[#0018A8] flex items-center justify-center">
-                    <svg width="12" height="12" viewBox="0 0 24 24">
-                      <line x1="4" y1="20" x2="20" y2="4" stroke="#0018A8" strokeWidth="2.5" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="bg-blue-800 text-white text-[7px] font-bold py-[2px] w-full border-t-[2px] border-blue-800 font-sans tracking-wide">
-                  Tel: +496991000 - Fax: +496991034225
-                </div>
-              </div>
-
-              {/* Right Side Round Stamp Image */}
+            <div className="mt-6 flex flex-col w-full">
               <img 
-                src="https://k.top4top.io/p_3840238y21.png" 
-                alt="Deutsche Bank Stamp" 
-                className="absolute right-0 top-[-40px] w-[130px] opacity-90"
-              />
-
-              {/* Long Blue Signature Image */}
-              <img 
-                src="https://k.top4top.io/p_3840okeke1.png" 
-                alt="Authorized Signatures" 
-                className="absolute left-0 bottom-[-10px] w-full h-auto opacity-90 object-contain mix-blend-multiply"
+                src="/logos/deutsche-signatures.png" 
+                alt="Authorized Signatures and Stamps" 
+                className="w-[95%] h-auto object-contain mx-auto mix-blend-multiply"
               />
             </div>
           </div>
