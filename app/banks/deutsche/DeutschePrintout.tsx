@@ -285,13 +285,13 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             {/* Header: Barcode (Left), Logo (Right) */}
             <div className="flex justify-between items-start mb-2 w-full pt-4">
               <div className="flex flex-col items-start">
-                <div className="inline-flex flex-col items-center ml-10 mb-2">
+                <div className="inline-flex flex-col items-center mb-2 -ml-2">
                   <img 
                     src="/logos/deutsche-barcode.png" 
                     alt="Barcode" 
-                    className="h-[48px] object-contain mix-blend-multiply"
+                    className="h-[40px] object-contain mix-blend-multiply"
                   />
-                  <div className="font-mono text-[13px] tracking-widest text-gray-900 mt-1">
+                  <div className="font-mono text-[12px] tracking-[0.2em] text-gray-900 mt-1">
                     {senderRef}
                   </div>
                 </div>
@@ -333,13 +333,13 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             {/* Header: Barcode (Left), Logo (Right) */}
             <div className="flex justify-between items-start mb-6 w-full pt-4">
               <div className="flex flex-col items-start">
-                <div className="inline-flex flex-col items-center ml-10">
+                <div className="inline-flex flex-col items-center -ml-2">
                   <img 
                     src="/logos/deutsche-barcode.png" 
                     alt="Barcode" 
-                    className="h-[48px] object-contain mix-blend-multiply"
+                    className="h-[40px] object-contain mix-blend-multiply"
                   />
-                  <div className="font-mono text-[13px] tracking-widest text-gray-900 mt-1">
+                  <div className="font-mono text-[12px] tracking-[0.2em] text-gray-900 mt-1">
                     {senderRef}
                   </div>
                 </div>
