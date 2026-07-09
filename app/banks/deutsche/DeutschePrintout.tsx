@@ -95,8 +95,8 @@ const DeutschePrintout = ({ data, onBack }) => {
   const preStyle = {
     fontFamily: "Courier, 'Courier New', monospace",
     fontWeight: "bold", // PDF shows very bold and dark Courier text
-    fontSize: "10.5px",
-    lineHeight: "12.5px",
+    fontSize: "9.5px",
+    lineHeight: "10.5px",
     color: "#000000",
     letterSpacing: "0px",
     width: "100%",
@@ -166,7 +166,12 @@ PURPOSES SWIFT MT103TT CASH TRANSFER WITH UETR CODE IS FOR IMMEDIATE CASH-INSTAN
 VALUE AND NO MAIL OR SWIFT CONFIRMATION SHALL FOLLOW.
 
 FOR AND ON BEHALF OF ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}, TAUNUSANLAGE 12, 60254 FRANKFURT AM MAIN, GERMANY.
-AUTOMATED MESSAGE DOESN'T NEED ANY SIGNATURE`;
+AUTOMATED MESSAGE DOESN'T NEED ANY SIGNATURE
+
+AUTHORIZED OFFICER 1: MR. JAMES VON MOLTKE, CHIEF FINANCIAL OFFICER (PIN: J78414M )
+AUTHORIZED OFFICER 2: MR. CARSTEN LEWERENZ, HEAD OF BUSINESS CUSTOMERS (PIN: 53329)
+FOR AND ON BEHALF OF DEUTSCHE BANK AG
+TAUNUSANLAGE 12, 60254 FRANKFURT AM MAIN, GERMANY.`;
 
   const page2Text = `--------------------------------MESSAGE TRAILER--------------------------------
 HK:8983417752320
@@ -253,11 +258,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 </div>
               </div>
               
-              <div className="flex items-center mt-2">
+              <div className="flex items-center mt-2 pr-4">
                 <img 
                   src="/logos/deutsche-logo.png" 
                   alt="Deutsche Bank Logo" 
-                  className="h-10 object-contain"
+                  className="h-[75px] object-contain"
                 />
               </div>
             </div>
@@ -268,17 +273,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             </pre>
 
             {/* Footer with Signatures & Stamp */}
-            <div className="mt-6 flex flex-col w-full">
-              <div className="font-mono text-[10px] font-bold leading-snug w-full mb-2">
-                AUTHORIZED OFFICER 1: MR. JAMES VON MOLTKE, CHIEF FINANCIAL OFFICER (PIN: J78414M )<br/>
-                AUTHORIZED OFFICER 2: MR. CARSTEN LEWERENZ, HEAD OF BUSINESS CUSTOMERS (PIN: 53329)<br/>
-                FOR AND ON BEHALF OF DEUTSCHE BANK AG<br/>
-                TAUNUSANLAGE 12, 60254 FRANKFURT AM MAIN, GERMANY
-              </div>
+            <div className="mt-2 flex flex-col w-full relative">
               <img 
                 src="/logos/deutsche-signatures.png" 
                 alt="Authorized Signatures and Stamps" 
-                className="w-[95%] h-auto object-contain mx-auto mix-blend-multiply"
+                className="w-[95%] h-auto object-contain mx-auto mix-blend-multiply -mt-16"
               />
             </div>
 
@@ -295,11 +294,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <Barcode value={senderRef} />
               </div>
               
-              <div className="flex items-center mt-2">
+              <div className="flex items-center mt-2 pr-4">
                 <img 
                   src="/logos/deutsche-logo.png" 
                   alt="Deutsche Bank Logo" 
-                  className="h-10 object-contain"
+                  className="h-[75px] object-contain"
                 />
               </div>
             </div>
@@ -309,14 +308,8 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
               {page2Text}
             </pre>
             
-            {/* QR Code placeholder on left */}
-            <div className="mt-2 w-[80px] h-[80px]">
-              {/* Fake QR using text/symbols as a placeholder, or just black box */}
-              <div className="w-full h-full bg-cover" style={{backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"100\" height=\"100\" fill=\"%23ccc\"/><path d=\"M10 10h30v30H10zM60 10h30v30H60zM10 60h30v30H10z\" fill=\"%23333\"/><path d=\"M20 20h10v10H20zM70 20h10v10H70zM20 70h10v10H20zM45 45h10v10H45z\" fill=\"%23ccc\"/></svg>')", filter: "grayscale(100%) contrast(200%)"}}></div>
-            </div>
-
             {/* Footer with Signatures & Stamp */}
-            <div className="mt-6 flex flex-col w-full">
+            <div className="mt-6 flex flex-col w-full relative">
               <img 
                 src="/logos/deutsche-signatures.png" 
                 alt="Authorized Signatures and Stamps" 
