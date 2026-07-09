@@ -52,7 +52,7 @@ export default function PublicDocumentPage() {
   // Right now only Deutsche is fully configured for QR code in this task, but we can switch if needed
   if (data.bankId === "deutsche") {
     return (
-      <div className="min-h-screen bg-slate-900 py-10">
+      <div className="min-h-screen bg-[#525659] flex flex-col items-center py-8 px-2 overflow-x-auto">
         <DeutschePrintout data={data} isPublic={true} />
       </div>
     );

@@ -267,7 +267,7 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
 --------------------------------END OF TRANSMISSION------------------------------------`;
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 print:bg-white print:p-0 shadow-2xl">
+    <div className={isPublic ? "w-full flex flex-col items-center" : "bg-slate-900 border border-slate-800 rounded-3xl p-6 print:bg-white print:p-0 shadow-2xl"}>
       {/* Back and Print buttons */}
       {!isPublic && (
         <div className="flex flex-wrap justify-between gap-3 mb-6 no-print">
@@ -286,21 +286,24 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
         </div>
       )}
       {isPublic && (
-        <div className="flex justify-end gap-3 mb-6 no-print w-[620px] mx-auto">
+        <div className="flex justify-center mb-6 no-print w-full">
           <button
             onClick={() => window.print()}
-            className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 text-sm shadow-lg shadow-blue-500/20"
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 shadow-xl shadow-blue-500/20 flex items-center gap-2"
           >
-            🖨️ Print / Download PDF
+            <span className="text-xl">🖨️</span> Print / Download PDF
           </button>
         </div>
       )}
 
       {/* Pages Container */}
-      <div className="flex flex-col items-center gap-8 my-4 print:my-0 print:gap-0 bg-slate-950/60 py-8 px-4 rounded-2xl print:bg-white print:p-0">
+      <div 
+        className={`flex flex-col items-center gap-8 ${isPublic ? 'my-0 print:my-0' : 'my-4'} print:my-0 print:gap-0 ${isPublic ? 'bg-transparent py-0' : 'bg-slate-950/60 py-8 px-4 rounded-2xl'} print:bg-white print:p-0`}
+        style={{ WebkitTextSizeAdjust: "none", textSizeAdjust: "none" }}
+      >
         
         {/* PAGE 1 */}
-        <div className="swift-page print-page relative flex flex-col bg-white" id="deutsche-printout-page1">
+        <div className={`swift-page print-page relative flex flex-col bg-white ${isPublic ? 'shadow-2xl' : ''}`} id="deutsche-printout-page1">
           <div className="w-[620px] mx-auto flex flex-col h-full">
             
             {/* Header: Barcode (Left), Logo (Right) */}
@@ -348,7 +351,7 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
         </div>
 
         {/* PAGE 2 */}
-        <div className="swift-page print-page relative flex flex-col bg-white" id="deutsche-printout-page2">
+        <div className={`swift-page print-page relative flex flex-col bg-white ${isPublic ? 'shadow-2xl' : ''}`} id="deutsche-printout-page2">
           <div className="w-[620px] mx-auto flex flex-col h-full">
             
             {/* Header: Barcode (Left), Logo (Right) */}
