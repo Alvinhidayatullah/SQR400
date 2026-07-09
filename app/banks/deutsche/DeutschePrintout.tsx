@@ -288,8 +288,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <img 
                   src="/logos/deutsche-barcode.png" 
                   alt="Barcode" 
-                  className="h-[48px] object-contain mix-blend-multiply"
+                  className="h-[48px] object-contain object-left mix-blend-multiply -ml-2"
                 />
+                <div className="font-mono text-[13px] tracking-widest text-gray-900 mt-0.5 mb-1 ml-6">
+                  {senderRef}
+                </div>
                 <div className="font-mono text-[11px] font-bold mt-1 whitespace-pre leading-snug">
                   {`FROM:      ${senderSwift}      ${dates.dateStr}\nTO:        ${receiverSwift}      ${dates.timeStr}`}
                 </div>
@@ -331,8 +334,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <img 
                   src="/logos/deutsche-barcode.png" 
                   alt="Barcode" 
-                  className="h-[48px] object-contain mix-blend-multiply"
+                  className="h-[48px] object-contain object-left mix-blend-multiply -ml-2"
                 />
+                <div className="font-mono text-[13px] tracking-widest text-gray-900 mt-0.5 mb-1 ml-6">
+                  {senderRef}
+                </div>
               </div>
               
               <div className="flex items-center mt-2 pr-4">
