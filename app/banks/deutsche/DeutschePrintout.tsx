@@ -255,9 +255,9 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <img 
                   src="/logos/deutsche-barcode.png" 
                   alt="Barcode" 
-                  className="h-[70px] object-contain mix-blend-multiply"
+                  className="h-[48px] object-contain mix-blend-multiply"
                 />
-                <div className="font-mono text-[11px] font-bold mt-2 whitespace-pre leading-snug">
+                <div className="font-mono text-[11px] font-bold mt-1 whitespace-pre leading-snug">
                   {`FROM:      ${senderSwift}      ${dates.dateStr}\nTO:        ${receiverSwift}      ${dates.timeStr}`}
                 </div>
               </div>
@@ -298,7 +298,7 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
                 <img 
                   src="/logos/deutsche-barcode.png" 
                   alt="Barcode" 
-                  className="h-[70px] object-contain mix-blend-multiply"
+                  className="h-[48px] object-contain mix-blend-multiply"
                 />
               </div>
               
