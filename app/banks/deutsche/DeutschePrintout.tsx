@@ -252,7 +252,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             {/* Header: Barcode (Left), Logo (Right) */}
             <div className="flex justify-between items-start mb-2 w-full pt-4">
               <div className="flex flex-col">
-                <Barcode value={senderRef} />
+                <img 
+                  src="/logos/deutsche-barcode.png" 
+                  alt="Barcode" 
+                  className="h-[70px] object-contain mix-blend-multiply"
+                />
                 <div className="font-mono text-[11px] font-bold mt-2 whitespace-pre leading-snug">
                   {`FROM:      ${senderSwift}      ${dates.dateStr}\nTO:        ${receiverSwift}      ${dates.timeStr}`}
                 </div>
@@ -291,7 +295,11 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
             {/* Header: Barcode (Left), Logo (Right) */}
             <div className="flex justify-between items-start mb-6 w-full pt-4">
               <div className="flex flex-col">
-                <Barcode value={senderRef} />
+                <img 
+                  src="/logos/deutsche-barcode.png" 
+                  alt="Barcode" 
+                  className="h-[70px] object-contain mix-blend-multiply"
+                />
               </div>
               
               <div className="flex items-center mt-2 pr-4">
