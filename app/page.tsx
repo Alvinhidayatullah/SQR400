@@ -19,6 +19,7 @@ export default function Home() {
   const [selectedBank, setSelectedBank] = useState("hsbc");
   const [transactionData, setTransactionData] = useState(null);
   const [showResult, setShowResult] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const [stats, setStats] = useState({ onlineCount: 1, activeCount: 1 });
   const [showSettings, setShowSettings] = useState(false);
@@ -59,13 +60,12 @@ export default function Home() {
   }, [session]);
 
   const handleSubmit = async (data) => {
-    setTransactionData(data);
-    setShowResult(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsGenerating(true);
+    let finalData = { ...data };
 
-    // Log user generation traffic on the backend
     if (session) {
       try {
+        // Log user generation traffic on the backend
         await fetch("/api/traffic", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -77,10 +77,33 @@ export default function Home() {
             senderRef: data.transaction?.senderReference || "N/A",
           }),
         });
+
+        // Save full transaction data to the database to generate a public link
+        const res = await fetch("/api/transactions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: session.name || session.username,
+            bank: data.selectedBank,
+            transactionData: data,
+          }),
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          if (result.success && result.slug) {
+            finalData.slug = result.slug;
+          }
+        }
       } catch (err) {
-        console.error("Failed to log printout generation traffic:", err);
+        console.error("Failed to log printout generation traffic or save transaction:", err);
       }
     }
+
+    setTransactionData(finalData);
+    setIsGenerating(false);
+    setShowResult(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleBack = () => {
@@ -275,7 +298,12 @@ export default function Home() {
 
         {/* Form or Result Container */}
         <div className="transition-all duration-300">
-          {!showResult ? (
+          {isGenerating ? (
+            <div className="flex flex-col items-center justify-center py-20 bg-slate-900/30 border border-slate-850 rounded-3xl backdrop-blur-md">
+              <div className="w-12 h-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mb-4" />
+              <p className="text-cyan-400 font-mono tracking-widest text-sm animate-pulse">GENERATING SQR DOCUMENT...</p>
+            </div>
+          ) : !showResult ? (
             <div className="bg-slate-900/30 border border-slate-850 rounded-3xl p-1 md:p-2 shadow-2xl backdrop-blur-md">
               {renderForm()}
             </div>

@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
 
 // Code-128 structured barcode element (optimized width & height for authentic SWIFT receipts)
 const Barcode = ({ value }) => {
@@ -83,7 +85,14 @@ const DataMatrix = () => {
   );
 };
 
-const DeutschePrintout = ({ data, onBack }) => {
+const DeutschePrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: () => void, isPublic?: boolean }) => {
+  const [baseUrl, setBaseUrl] = useState("https://sqr400-sigma.vercel.app");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
   const formatNumber = (num) => {
     if (!num) return "0.00";
     return new Intl.NumberFormat("en-US", {
@@ -260,20 +269,32 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 print:bg-white print:p-0 shadow-2xl">
       {/* Back and Print buttons */}
-      <div className="flex flex-wrap justify-between gap-3 mb-6 no-print">
-        <button
-          onClick={onBack}
-          className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl font-bold transition-all duration-200 text-sm border border-slate-700"
-        >
-          ← Back to Form
-        </button>
-        <button
-          onClick={() => window.print()}
-          className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 text-sm shadow-lg shadow-blue-500/20"
-        >
-          🖨️ Print / Download PDF
-        </button>
-      </div>
+      {!isPublic && (
+        <div className="flex flex-wrap justify-between gap-3 mb-6 no-print">
+          <button
+            onClick={onBack}
+            className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl font-bold transition-all duration-200 text-sm border border-slate-700"
+          >
+            ← Back to Form
+          </button>
+          <button
+            onClick={() => window.print()}
+            className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 text-sm shadow-lg shadow-blue-500/20"
+          >
+            🖨️ Print / Download PDF
+          </button>
+        </div>
+      )}
+      {isPublic && (
+        <div className="flex justify-end gap-3 mb-6 no-print w-[620px] mx-auto">
+          <button
+            onClick={() => window.print()}
+            className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold transition-all duration-200 text-sm shadow-lg shadow-blue-500/20"
+          >
+            🖨️ Print / Download PDF
+          </button>
+        </div>
+      )}
 
       {/* Pages Container */}
       <div className="flex flex-col items-center gap-8 my-4 print:my-0 print:gap-0 bg-slate-950/60 py-8 px-4 rounded-2xl print:bg-white print:p-0">
@@ -359,9 +380,16 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
               {page2Text}
             </pre>
             
-            {/* 2D DataMatrix Barcode on Bottom Left */}
+            {/* 2D QR Code on Bottom Left */}
             <div className="mt-4 pl-4">
-              <DataMatrix />
+              <QRCode 
+                value={data.slug ? `${baseUrl}/doc/${data.slug}` : "https://sqr400-sigma.vercel.app/"}
+                size={85}
+                level="H"
+                fgColor="#000000"
+                bgColor="#FFFFFF"
+                className="mix-blend-multiply"
+              />
             </div>
             
             {/* Footer with Signatures & Stamp */}
