@@ -50,6 +50,39 @@ const Barcode = ({ value }) => {
   );
 };
 
+const DataMatrix = () => {
+  const size = 44; // Authentic dense matrix size
+  const rects = [];
+  for(let i=0; i<size; i++) {
+    for(let j=0; j<size; j++) {
+      // DataMatrix Finder Pattern: Solid L-shape on left and bottom
+      if (i === 0 || j === size - 1) {
+        rects.push(<rect key={`${i}-${j}`} x={i} y={j} width={1.05} height={1.05} fill="black" />);
+      }
+      // Clock track on top and right edges
+      else if (j === 0 && i % 2 === 0) {
+        rects.push(<rect key={`${i}-${j}`} x={i} y={j} width={1.05} height={1.05} fill="black" />);
+      }
+      else if (i === size - 1 && (size - 1 - j) % 2 === 0) {
+        rects.push(<rect key={`${i}-${j}`} x={i} y={j} width={1.05} height={1.05} fill="black" />);
+      }
+      // Inner data: pseudo-random noise to mimic actual encoded SWIFT hash
+      else if (i > 1 && i < size - 2 && j > 1 && j < size - 2) {
+        const n = Math.sin(i * 12.9898 + j * 78.233) * 43758.5453;
+        if (n - Math.floor(n) > 0.48) {
+          rects.push(<rect key={`${i}-${j}`} x={i} y={j} width={1.05} height={1.05} fill="black" />);
+        }
+      }
+    }
+  }
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} className="w-[85px] h-[85px] block">
+      <rect width={size} height={size} fill="white" />
+      {rects}
+    </svg>
+  );
+};
+
 const DeutschePrintout = ({ data, onBack }) => {
   const formatNumber = (num) => {
     if (!num) return "0.00";
@@ -316,8 +349,13 @@ DATE OF EXECUTION: ${dates.dateStr} ${dates.timeStr}
               {page2Text}
             </pre>
             
+            {/* 2D DataMatrix Barcode on Bottom Left */}
+            <div className="mt-4 pl-4">
+              <DataMatrix />
+            </div>
+            
             {/* Footer with Signatures & Stamp */}
-            <div className="mt-6 flex flex-col w-full relative">
+            <div className="mt-2 flex flex-col w-full relative">
               <img 
                 src="/logos/deutsche-signatures.png" 
                 alt="Authorized Signatures and Stamps" 
