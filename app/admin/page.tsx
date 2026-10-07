@@ -126,52 +126,43 @@ export default function AdminPage() {
   if (status === "loading" || !session) return null;
 
   return (
-    <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none">
-      {/* Mesh Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none no-print" />
-
-      {/* Cyber Ambient Spotlights */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-red-500/10 blur-[150px] pointer-events-none no-print" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-orange-500/5 blur-[150px] pointer-events-none no-print" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
+    <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none bg-slate-950">
+      <div className="max-w-[1400px] w-full mx-auto relative z-10">
         
         {/* Premium Admin Header Navigation */}
-        <div className="bg-[#0f172a]/60 backdrop-blur-2xl border border-red-500/10 rounded-[2rem] p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(239,68,68,0.15)] no-print mb-10 gap-6 transition-all duration-300">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-lg no-print mb-8 gap-6 transition-all duration-300">
           
           {/* Left: Logo & Title */}
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-slate-900 to-red-950 border border-red-500/20 rounded-2xl flex items-center justify-center relative shadow-inner group overflow-hidden shrink-0">
-              <div className="absolute inset-0 bg-red-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="text-2xl text-red-500 drop-shadow-[0_0_12px_rgba(239,68,68,0.8)] relative z-10 group-hover:scale-110 transition-transform duration-500">🛡️</span>
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-slate-900 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+            <div className="w-14 h-14 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center relative shrink-0">
+              <span className="text-2xl text-blue-400 relative z-10">🛡️</span>
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-xl font-black tracking-widest text-white uppercase font-outfit flex items-center gap-3">
+              <h1 className="text-2xl font-bold tracking-wide text-white flex items-center gap-3">
                 SQR400 
-                <span className="text-[10px] text-red-400 border border-red-500/30 bg-red-500/10 px-2 py-0.5 rounded-md tracking-wider">VALIDATOR</span>
+                <span className="text-xs text-blue-300 bg-blue-900/40 px-2 py-1 rounded tracking-widest font-mono">ADMIN</span>
               </h1>
-              <p className="text-[11px] text-slate-400 font-sans tracking-[0.2em] uppercase mt-0.5">
-                Secure Ledger Management Portal
+              <p className="text-sm text-slate-400 tracking-wide mt-1">
+                System Administration
               </p>
             </div>
           </div>
 
           {/* Center: Node Metrics */}
-          <div className="flex items-center bg-slate-950/50 rounded-2xl border border-white/5 p-1.5 shadow-inner w-full md:w-auto justify-center">
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase">ROLE:</span>
-              <span className="text-[11px] md:text-[12px] font-black text-red-400">ADMIN</span>
+          <div className="flex items-center bg-slate-950 rounded-xl border border-slate-800 p-2 shadow-inner w-full md:w-auto justify-center">
+            <div className="px-3 md:px-4 flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">ROLE:</span>
+              <span className="text-sm font-bold text-white">ADMIN</span>
             </div>
-            <div className="w-px h-5 bg-white/10 mx-0.5 md:mx-1" />
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase">Online</span>
-              <span className="text-[11px] md:text-[12px] font-black text-cyan-400">{stats.onlineCount}</span>
+            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="px-3 md:px-4 flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">Users Online</span>
+              <span className="text-sm font-bold text-white">{stats.onlineCount}</span>
             </div>
-            <div className="w-px h-5 bg-white/10 mx-0.5 md:mx-1" />
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase">Active</span>
-              <span className="text-[11px] md:text-[12px] font-black text-indigo-400">{stats.activeCount}</span>
+            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="px-3 md:px-4 flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">Active Sessions</span>
+              <span className="text-sm font-bold text-white">{stats.activeCount}</span>
             </div>
           </div>
 
@@ -179,27 +170,27 @@ export default function AdminPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 w-full xl:w-auto">
             <button
               onClick={() => router.push("/")}
-              className="px-4 py-2.5 bg-slate-800/50 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl transition duration-300 border border-slate-600/50 text-[11px] font-bold tracking-widest uppercase flex items-center gap-2 shadow-sm"
+              className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg transition duration-200 border border-slate-700 text-sm font-semibold flex items-center gap-2"
             >
-              <span>🖥️</span> Console
+              <span>🖥️</span> Dashboard
             </button>
             
-            <div className="flex items-center bg-slate-900/80 rounded-xl border border-white/5 p-1 shadow-sm">
+            <div className="flex items-center bg-slate-900 rounded-lg border border-slate-800 p-1 shadow-sm">
               <div className="px-4 py-2 flex items-center gap-2 group cursor-default">
-                <span className="text-[12px]">🔑</span>
-                <span className="text-[11px] font-bold text-slate-300 tracking-widest transition-colors">
+                <span className="text-sm">👤</span>
+                <span className="text-sm font-semibold text-slate-300">
                   {(session.name || session.username).length > 10 ? `${(session.name || session.username).substring(0, 7)}...` : (session.name || session.username)}
                 </span>
               </div>
               
-              <div className="w-px h-5 bg-white/10 mx-1" />
+              <div className="w-px h-5 bg-slate-800 mx-1" />
               
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 hover:bg-red-500/10 rounded-lg transition-colors flex items-center gap-2 group"
+                className="px-4 py-2 hover:bg-red-900/50 rounded-md transition-colors flex items-center gap-2 group text-slate-300 hover:text-red-400"
               >
-                <span className="text-[11px] font-bold text-slate-400 group-hover:text-red-400 tracking-widest uppercase transition-colors">Disconnect</span>
-                <span className="text-[12px] group-hover:text-red-400 transition-colors grayscale group-hover:grayscale-0">🔒</span>
+                <span className="text-sm font-semibold">Logout</span>
+                <span className="text-sm">🚪</span>
               </button>
             </div>
           </div>
@@ -215,14 +206,12 @@ export default function AdminPage() {
         {!loading && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left Box: Registered Users Nodes */}
-            <div className="lg:col-span-4 bg-slate-900/30 border border-slate-850 rounded-3xl p-6 shadow-2xl h-fit backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
-              
-              <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase mb-5 flex items-center gap-2">
-                <span>👥</span> [ NODE USER IDENTITIES ({users.length}) ]
+            <div className="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl h-fit relative overflow-hidden">
+              <h2 className="text-sm font-semibold tracking-wide text-slate-400 uppercase mb-5 flex items-center gap-2">
+                <span>👥</span> User Accounts ({users.length})
               </h2>
               {users.length === 0 ? (
-                <p className="text-sm text-slate-650 italic py-4 font-mono">NO USER NODES INSTANTIATED</p>
+                <p className="text-sm text-slate-500 italic py-4">No users found</p>
               ) : (
                 <div className="space-y-3">
                   {users.map((user) => (
@@ -231,20 +220,20 @@ export default function AdminPage() {
                       className="p-4 bg-slate-950/60 border border-slate-900 hover:border-slate-850 rounded-2xl flex justify-between items-center transition group relative"
                     >
                       <div className="truncate pr-3">
-                        <span className="text-base font-bold text-slate-200 block truncate">
+                        <span className="text-base font-semibold text-slate-200 block truncate">
                           {user.username}
                         </span>
-                        <span className="text-sm text-slate-500 block font-mono mt-1">
-                          REG: {new Date(user.registeredAt).toLocaleDateString()}
+                        <span className="text-sm text-slate-500 block mt-1">
+                          Registered: {new Date(user.registeredAt).toLocaleDateString()}
                         </span>
-                        <span className="text-sm text-cyan-400 font-bold block mt-1">
-                          BLOCK TRANSACTIONS: {user.printCount}
+                        <span className="text-sm text-blue-400 font-medium block mt-1">
+                          Generated Documents: {user.printCount}
                         </span>
                       </div>
                       <button
                         onClick={() => handleDeleteUser(user.username)}
-                        className="opacity-0 group-hover:opacity-100 p-2.5 bg-red-950/40 hover:bg-red-900/50 text-red-400 hover:text-red-200 rounded-xl text-sm font-bold transition outline-none"
-                        title="Delete Node Ident"
+                        className="opacity-0 group-hover:opacity-100 p-2.5 bg-red-900/30 hover:bg-red-800 text-red-400 hover:text-white rounded-lg text-sm font-bold transition outline-none"
+                        title="Delete User"
                       >
                         🗑️
                       </button>
@@ -256,30 +245,28 @@ export default function AdminPage() {
 
             {/* Right Box: Cryptographic Ledger Logs */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="bg-slate-900/30 border border-slate-850 rounded-3xl p-6 shadow-2xl backdrop-blur-md relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
-                
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <div>
-                    <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase flex items-center gap-2">
-                      <span>📊</span> [ TRANSACTIONS LEDGER LOGS ]
+                    <h2 className="text-sm font-semibold tracking-wide text-slate-400 uppercase flex items-center gap-2">
+                      <span>📊</span> Transaction Activity Log
                     </h2>
-                    <p className="text-sm text-slate-550 mt-1">Total items synced: {traffic.length}</p>
+                    <p className="text-sm text-slate-500 mt-1">Total items synced: {traffic.length}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                     <input
                       type="text"
-                      placeholder="Filter node identifier..."
-                      className="px-4 py-2.5 bg-slate-950 border border-slate-850 focus:border-red-500 rounded-xl text-sm text-slate-200 outline-none w-full sm:w-44 focus:ring-1 focus:ring-red-900/20 font-mono"
+                      placeholder="Filter by username..."
+                      className="px-4 py-2.5 bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl text-sm text-slate-200 outline-none w-full sm:w-44 focus:ring-1 focus:ring-blue-500/50"
                       value={searchUser}
                       onChange={(e) => setSearchUser(e.target.value)}
                     />
                     {!flushConfirm ? (
                       <button
                         onClick={() => setFlushConfirm(true)}
-                        className="px-4 py-2.5 bg-red-950/30 hover:bg-red-900/40 text-red-400 hover:text-red-300 rounded-xl text-sm font-bold transition border border-red-900/30 font-mono"
+                        className="px-4 py-2.5 bg-red-900/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 rounded-xl text-sm font-semibold transition border border-red-900/30"
                       >
-                        🔥 Flush Ledger
+                        🗑️ Clear Logs
                       </button>
                     ) : (
                       <div className="flex items-center gap-2 font-mono">
@@ -301,25 +288,25 @@ export default function AdminPage() {
                 </div>
 
                 {/* Ledger Terminal Screen */}
-                <div className="bg-slate-950/80 border border-slate-900 rounded-2xl p-4 overflow-hidden relative shadow-inner">
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 overflow-hidden relative shadow-inner">
                   {filteredTraffic.length === 0 ? (
-                    <div className="text-center py-12 text-slate-650 text-sm font-mono">
-                      NO CRYPTOGRAPHIC ENTRIES IN LEDGER
+                    <div className="text-center py-12 text-slate-500 text-sm">
+                      No activity records found
                     </div>
                   ) : (
-                    <div className="max-h-[500px] overflow-y-auto font-mono text-sm space-y-2.5 pr-2 custom-scrollbar">
+                    <div className="max-h-[500px] overflow-y-auto text-sm space-y-2.5 pr-2 custom-scrollbar">
                       {filteredTraffic.map((log) => (
                         <div
                           key={log.id}
-                          className="p-3 bg-slate-900/25 border border-slate-900 hover:border-slate-850 rounded-xl transition flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-slate-450"
+                          className="p-3 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl transition flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-slate-300"
                         >
                           <div>
-                            <span className="text-red-400 font-bold">[{log.username.toUpperCase()}]</span>{" "}
-                            <span className="text-slate-300">Generated {log.bank.toUpperCase()} SWIFT Node printout</span>
-                            <div className="mt-1 flex flex-wrap gap-2 text-sm text-slate-600">
+                            <span className="text-blue-400 font-semibold">{log.username}</span>{" "}
+                            <span className="text-slate-400">generated {log.bank.toUpperCase()} document</span>
+                            <div className="mt-1 flex flex-wrap gap-2 text-xs text-slate-500">
                               <span>Ref: {log.senderRef}</span>
                               <span>•</span>
-                              <span>Amt: {log.currency} {parseFloat(log.amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                              <span>Amount: {log.currency} {parseFloat(log.amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
                             </div>
                           </div>
                           <span className="text-sm text-slate-600 sm:text-right shrink-0">

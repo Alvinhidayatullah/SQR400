@@ -208,54 +208,44 @@ export default function Home() {
   if (status === "loading" || !session) return null; // Avoid flashing content before redirect
 
   return (
-    <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none">
-      {/* Dynamic Digital Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none no-print" />
-
-      {/* Deep Space Glowing Accent Elements */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none select-none no-print" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-500/10 blur-[150px] pointer-events-none select-none no-print" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
+    <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none bg-slate-950">
+      <div className="max-w-[1400px] w-full mx-auto relative z-10">
         {/* Premium Header Navigation */}
-        <div className="bg-[#0f172a]/60 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.4)] no-print mb-10 gap-6 transition-all duration-300">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-lg no-print mb-8 gap-6 transition-all duration-300">
           
           {/* Left: Logo & Title */}
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 rounded-2xl flex items-center justify-center relative shadow-inner group overflow-hidden shrink-0">
-              <div className="absolute inset-0 bg-cyan-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="text-2xl text-cyan-400 drop-shadow-[0_0_12px_rgba(34,211,238,0.8)] relative z-10 group-hover:scale-110 transition-transform duration-500">⚡</span>
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-slate-900 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+            <div className="w-14 h-14 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center relative shrink-0">
+              <span className="text-2xl text-blue-400 relative z-10">🏦</span>
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-xl font-black tracking-widest text-white uppercase font-outfit flex items-center gap-3">
+              <h1 className="text-2xl font-bold tracking-wide text-white flex items-center gap-3">
                 SQR400 
-                <span className="text-[10px] text-cyan-400 border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 rounded-md tracking-wider">v5.8</span>
+                <span className="text-xs text-blue-300 bg-blue-900/40 px-2 py-1 rounded tracking-widest font-mono">v5.8</span>
               </h1>
-              <p className="text-[11px] text-slate-400 font-sans tracking-[0.2em] uppercase mt-0.5">
-                Swift Crypto Bridge
+              <p className="text-sm text-slate-400 tracking-wide mt-1">
+                System Dashboard
               </p>
             </div>
           </div>
 
           {/* Center: Network Status Indicators */}
-          <div className="flex items-center bg-slate-950/50 rounded-2xl border border-white/5 p-1.5 shadow-inner w-full md:w-auto justify-center">
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
+          <div className="flex items-center bg-slate-950 rounded-xl border border-slate-800 p-2 shadow-inner w-full md:w-auto justify-center">
+            <div className="px-3 md:px-4 flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-300 tracking-widest uppercase">Mainnet</span>
+              <span className="text-xs font-semibold text-slate-300 uppercase">Production</span>
             </div>
-            <div className="w-px h-5 bg-white/10 mx-0.5 md:mx-1" />
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase">Online</span>
-              <span className="text-[11px] md:text-[12px] font-black text-cyan-400">{stats.onlineCount}</span>
+            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="px-3 md:px-4 flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">Users Online</span>
+              <span className="text-sm font-bold text-white">{stats.onlineCount}</span>
             </div>
-            <div className="w-px h-5 bg-white/10 mx-0.5 md:mx-1" />
-            <div className="px-3 md:px-4 py-1.5 flex items-center gap-2">
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-widest uppercase">Active</span>
-              <span className="text-[11px] md:text-[12px] font-black text-indigo-400">{stats.activeCount}</span>
+            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="px-3 md:px-4 flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">Active Sessions</span>
+              <span className="text-sm font-bold text-white">{stats.activeCount}</span>
             </div>
           </div>
 
@@ -264,13 +254,13 @@ export default function Home() {
             {session.role === "admin" && (
               <button
                 onClick={() => router.push("/admin")}
-                className="px-4 py-2.5 bg-gradient-to-r from-red-500/10 to-rose-500/10 hover:from-red-500/20 hover:to-rose-500/20 text-red-400 hover:text-red-300 rounded-xl transition duration-300 border border-red-500/20 text-[11px] font-bold tracking-widest uppercase flex items-center gap-2 shadow-sm"
+                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg transition duration-200 border border-slate-700 text-sm font-semibold flex items-center gap-2"
               >
-                <span>🔐</span> Admin Node
+                <span>⚙️</span> Administration
               </button>
             )}
             
-            <div className="flex items-center bg-slate-900/80 rounded-xl border border-white/5 p-1 shadow-sm">
+            <div className="flex items-center bg-slate-900 rounded-lg border border-slate-800 p-1 shadow-sm">
               <button
                 onClick={() => {
                   setSettingsUsername(session.username);
@@ -281,24 +271,23 @@ export default function Home() {
                   setSettingsSuccess("");
                   setShowSettings(true);
                 }}
-                className="px-4 py-2 hover:bg-white/5 rounded-lg transition-colors flex items-center gap-2 group"
-                title="Identity Settings"
+                className="px-4 py-2 hover:bg-slate-800 rounded-md transition-colors flex items-center gap-2 group"
+                title="Account Settings"
               >
-                <span className="text-[12px]">🔑</span>
-                <span className="text-[11px] font-bold text-slate-300 tracking-widest group-hover:text-white transition-colors">
+                <span className="text-sm">👤</span>
+                <span className="text-sm font-semibold text-slate-300 group-hover:text-white transition-colors">
                   {(session.name || session.username).length > 10 ? `${(session.name || session.username).substring(0, 7)}...` : (session.name || session.username)}
                 </span>
-                <span className="text-[10px] text-slate-500 group-hover:text-cyan-400 transition-colors ml-1">⚙️</span>
               </button>
               
-              <div className="w-px h-5 bg-white/10 mx-1" />
+              <div className="w-px h-5 bg-slate-800 mx-1" />
               
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 hover:bg-red-500/10 rounded-lg transition-colors flex items-center gap-2 group"
+                className="px-4 py-2 hover:bg-red-900/50 rounded-md transition-colors flex items-center gap-2 group text-slate-300 hover:text-red-400"
               >
-                <span className="text-[11px] font-bold text-slate-400 group-hover:text-red-400 tracking-widest uppercase transition-colors">Logout</span>
-                <span className="text-[12px] group-hover:text-red-400 transition-colors grayscale group-hover:grayscale-0">🚪</span>
+                <span className="text-sm font-semibold">Logout</span>
+                <span className="text-sm">🚪</span>
               </button>
             </div>
           </div>
@@ -314,12 +303,12 @@ export default function Home() {
         {/* Form or Result Container */}
         <div className="transition-all duration-300">
           {isGenerating ? (
-            <div className="flex flex-col items-center justify-center py-20 bg-slate-900/30 border border-slate-850 rounded-3xl backdrop-blur-md">
-              <div className="w-12 h-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mb-4" />
-              <p className="text-cyan-400 font-mono tracking-widest text-sm animate-pulse">GENERATING SQR DOCUMENT...</p>
+            <div className="flex flex-col items-center justify-center py-20 bg-slate-900 border border-slate-800 rounded-2xl shadow-lg">
+              <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4" />
+              <p className="text-blue-400 font-semibold tracking-wider text-base animate-pulse">Generating Document...</p>
             </div>
           ) : !showResult ? (
-            <div className="bg-slate-900/30 border border-slate-850 rounded-3xl p-1 md:p-2 shadow-2xl backdrop-blur-md">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-8 shadow-xl">
               {renderForm()}
             </div>
           ) : (
@@ -328,15 +317,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Web3 Settings Modal (OWASP Anti-XSS & BAC/IDOR protection enabled) */}
+      {/* Account Settings Modal */}
       {showSettings && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm no-print">
-          <div className="w-full max-w-md bg-slate-900/90 border border-slate-850 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-            {/* Glow line decoration */}
-            <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-            
-            <h2 className="text-base font-bold tracking-widest text-slate-200 uppercase mb-5 font-mono">
-              [ EDIT GATEWAY IDENTITY ]
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm no-print">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <h2 className="text-xl font-bold tracking-wide text-white mb-6">
+              Account Settings
             </h2>
 
             {settingsError && (
