@@ -1,41 +1,28 @@
-# SQR400 - v5.8 (Premium Plan)
+# SQR400 - Enterprise Financial Node Gateway (v5.8)
 
-SQR400 adalah aplikasi web berbasis Next.js yang dirancang untuk memproses, memvisualisasikan, dan memformat data transaksi keuangan serta pesan standar SWIFT MT103 untuk berbagai bank nasional maupun internasional secara terstruktur.
+SQR400 adalah aplikasi portal terdesentralisasi berskala *enterprise* berbasis Next.js. Aplikasi ini dirancang untuk memproses, memvisualisasikan, dan mensimulasikan pencetakan data transaksi keuangan standar **SWIFT MT103** untuk berbagai institusi perbankan dengan keamanan tingkat tinggi.
 
-Aplikasi ini dilengkapi dengan antarmuka pengguna yang bersih, responsif, dan didesain secara premium menggunakan Tailwind CSS.
+Aplikasi ini menggunakan desain antarmuka *premium* dengan *glassmorphism*, ikon elegan, dan animasi halus, yang mencerminkan sistem perbankan internal kelas atas.
 
-## 🚀 Fitur Utama
+## 🚀 Fitur Premium
 
-- **Bank Selector**: Memilih bank pengirim/penerima secara dinamis dengan konfigurasi Swift Code dan alamat yang sudah terpasang.
-- **Formulir Transaksi Khusus**: Formulir input data transaksi yang disesuaikan dengan parameter masing-masing bank (HSBC, BNI, Deutsche Bank, Mandiri, BCA, CitiBank, DBS, dan Standard Chartered).
-- **Visualisasi Hasil Transaksi**: Tampilan ringkasan transaksi dengan visualisasi yang menarik dan profesional.
-- **Format SWIFT MT103**: Kerangka kerja terintegrasi untuk menangani standardisasi data SWIFT MT103.
+- **Autentikasi Aman:** Sistem *login* menggunakan JWT (NextAuth.js) dengan peran pengguna (*User* & *Admin*).
+- **Admin Console:** Dasbor administratif untuk memantau sesi aktif, kelola akun pengguna (tambah, hapus), dan memantau riwayat log aktivitas transaksi dalam buku besar (*Ledger*).
+- **Public Document Gateway (QR Code):** Kemampuan untuk menghasilkan cetakan dokumen yang dilampiri *QR Code*. Ketika dipindai, ia akan membuka halaman dokumen *online* (*Public View*) yang akan otomatis terhapus dengan sendirinya (*expired*) setelah **30 Hari**.
+- **Enterprise UI/UX:** Animasi tingkat lanjut menggunakan **Framer Motion** dan **GSAP**, dipadukan dengan desain *Tailwind CSS* premium, ikon dari **Lucide React**, dan struktur antarmuka modern.
+- **Dukungan Bank Multinasional:** Modul transaksi untuk HSBC, BNI, Deutsche Bank (V2, V3), Mandiri, BCA, CitiBank, DBS, Standard Chartered, CIS, dan POF.
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Teknologi Utama
 
-- **Framework**: [Next.js v14.2.5](https://nextjs.org/) (React v18)
-- **Styling**: [Tailwind CSS v3.4.6](https://tailwindcss.com/) & PostCSS
-- **Bahasa**: JavaScript / TypeScript
-
-## 📂 Struktur Proyek
-
-```text
-sqr400-app/
-├── app/
-│   ├── banks/            # Komponen formulir transaksi spesifik per bank
-│   ├── components/       # Komponen UI global
-│   ├── utils/            # Fungsi utilitas (formatMT103.ts, db.ts)
-│   ├── globals.scss      # Styling global SCSS
-│   ├── layout.tsx        # Layout utama aplikasi
-│   └── page.tsx          # Halaman utama aplikasi
-├── migrate.js            # Skrip migrasi data JSON ke PostgreSQL
-├── public/               # Aset statis seperti logo bank
-└── package.json          # Dependensi dan skrip proyek
-```
+- **Framework**: [Next.js v14.2.5](https://nextjs.org/) (App Router)
+- **Database**: PostgreSQL (Neon Database)
+- **Authentication**: NextAuth.js (v4)
+- **Styling**: Tailwind CSS, SCSS, Framer Motion, GSAP, Lucide React
+- **QR Code & Barcode**: react-qr-code
 
 ## ⚙️ Persiapan & Menjalankan Aplikasi
 
-Aplikasi ini sekarang menggunakan **PostgreSQL** sebagai basis datanya (untuk keamanan yang lebih baik dibanding JSON statis). Ikuti langkah-langkah di bawah ini:
+Aplikasi ini menggunakan **PostgreSQL** (melalui platform cloud Neon DB) sebagai basis datanya.
 
 1. **Instalasi Dependensi**
    Pastikan Anda telah menginstal Node.js di sistem Anda, kemudian jalankan:
@@ -44,35 +31,32 @@ Aplikasi ini sekarang menggunakan **PostgreSQL** sebagai basis datanya (untuk ke
    ```
 
 2. **Konfigurasi Database (PostgreSQL)**
-   Pastikan Anda sudah menginstal dan menjalankan PostgreSQL.
-   - Buat database baru (misal: `sqr400`).
-   - Salin file `.env.example` ke `.env` (atau buat file `.env` baru).
-   - Isi kredensial database Anda di file `.env`:
-     ```env
-     DATABASE_URL=postgresql://user:password@localhost:5432/sqr400
-     ```
-
-3. **Migrasi Database**
-   Jalankan skrip migrasi untuk membuat tabel yang dibutuhkan secara otomatis:
-   ```bash
-   node migrate.js
+   Salin atau buat file `.env` di *root* proyek. Isi dengan koneksi database Neon Anda (serta secret JWT):
+   ```env
+   DATABASE_URL=postgresql://<user>:<password>@<host>/<dbname>?sslmode=require&channel_binding=require
+   NEXTAUTH_SECRET=rahasia-jwt-super-aman
    ```
 
-2. **Menjalankan Server Pengembangan**
-   Jalankan server pengembangan lokal:
+3. **Inisialisasi & Migrasi Database**
+   Jalankan skrip migrasi untuk secara otomatis membangun struktur tabel dan menyiapkan pengguna admin bawaan:
+   ```bash
+   npm run migrate
+   ```
+
+4. **Menjalankan Server Lokal**
+   Untuk memulai server dalam mode pengembangan (*development*):
    ```bash
    npm run dev
    ```
-   Buka [http://localhost:3000](http://localhost:3000) pada browser Anda untuk melihat hasilnya.
+   Buka [http://localhost:3000](http://localhost:3000) pada peramban Anda. Anda dapat login menggunakan kredensial yang dibuat selama inisiasi database.
 
-3. **Membangun untuk Produksi**
-   Untuk membuat bundel produksi yang dioptimalkan:
+5. **Kompilasi Produksi**
+   Untuk membangun aplikasi pada *server* produksi:
    ```bash
    npm run build
-   ```
-
-4. **Menjalankan Server Produksi**
-   Setelah proses build selesai, jalankan:
-   ```bash
    npm run start
    ```
+
+## 📜 Lisensi & Penggunaan
+
+Proyek ini dibuat untuk keperluan simulasi transaksi SWIFT MT103 dan pengembangan sistem informasi finansial berskala *enterprise*. Hanya untuk keperluan pengujian dan demonstrasi sistem.
