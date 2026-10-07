@@ -33,9 +33,9 @@ export async function POST(req: Request) {
     const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
     slug = `${slug}-${randomSuffix}`;
 
-    // Cleanup old transactions (older than 7 days) to keep DB clean
+    // Cleanup old transactions (older than 30 days) to keep DB clean
     try {
-      await query("DELETE FROM transactions WHERE created_at < NOW() - INTERVAL '7 days'");
+      await query("DELETE FROM transactions WHERE created_at < NOW() - INTERVAL '30 days'");
     } catch (cleanupError) {
       console.error("Cleanup error during POST:", cleanupError);
     }
@@ -61,9 +61,9 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
 
-    // Cleanup old transactions (older than 7 days) to keep DB clean
+    // Cleanup old transactions (older than 30 days) to keep DB clean
     try {
-      await query("DELETE FROM transactions WHERE created_at < NOW() - INTERVAL '7 days'");
+      await query("DELETE FROM transactions WHERE created_at < NOW() - INTERVAL '30 days'");
     } catch (cleanupError) {
       console.error("Cleanup error during GET:", cleanupError);
     }
