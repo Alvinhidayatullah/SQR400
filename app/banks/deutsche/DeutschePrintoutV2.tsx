@@ -161,7 +161,7 @@ const DeutschePrintoutV2 = ({ data, onBack, isPublic = false }: { data: any, onB
 FROM:
 ***SENDER           : ${senderSwift}
 ***BANK NAME        : ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}
-***BANK ADDRESS     : ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY").toUpperCase()}
+***BANK ADDRESS     : ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY").toUpperCase()}
 ***ACCOUNT NAME     : ${(institution.accountName || "AVANTULO S.A.").toUpperCase()}
 ***ACCOUNT NUMBER   : ${(institution.accountNumber || "DE60500700100361982244").toUpperCase()}
 ***SWIFT CODE       : ${senderSwift}
@@ -188,7 +188,7 @@ TO:
 *** F52A:     ORDERING INSTITUTION
               SENDER                         : ${senderSwift}
               BANK NAME                      : ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}
-              BANK ADDRESS                   : ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY").toUpperCase()}
+              BANK ADDRESS                   : ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY").toUpperCase()}
 *** F57A:     ACCOUNT WITH INSTITUTION
               RECEIVER SWIFT                 : ${receiverSwift}
               BANK RECEIVER                  : ${(beneficiary.bankName || "PTBANKRAKYATINDONESIA (PERSERO) TBK").toUpperCase()}
@@ -205,19 +205,19 @@ TO:
 *** F77B:     REGULATORY REPORTING: €${amtFormatted}
 *** F79:      NARRATIVE
 /// FOR AND ON BEHALF OF OUR CLIENT ${(institution.accountName || "AVANTULO S.A.").toUpperCase()}, WITH ACCOUNT NUMBER:
-${(institution.accountNumber || "DE60500700100361982244").toUpperCase()}, WE ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}, ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY").toUpperCase()}
+${(institution.accountNumber || "DE60500700100361982244").toUpperCase()}, WE ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}, ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY").toUpperCase()}
 HEREBY CONFIRM WITH FULL BANKING RESPONSIBILITY THAT THE ABOVE FUNDS ARE GOOD, CLEAN, CLEAR AND
 TAXED FUNDS OF NON-CRIMINAL ORIGIN, FREE FROM ANY LIENS OR ENCUMBRANCES AND PAID FOR INVESTMENTS
 PURPOSES SWIFT MT103TT CASH TRANSFER WITH UETR CODE IS FOR IMMEDIATE CASH-INSTANT SAME DAY
 VALUE AND NO MAIL OR SWIFT CONFIRMATION SHALL FOLLOW.
 
-FOR AND ON BEHALF OF ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}, ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY").toUpperCase()}.
+FOR AND ON BEHALF OF ${(institution.bankName || "DEUTSCHE BANK AG").toUpperCase()}, ${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY").toUpperCase()}.
 AUTOMATED MESSAGE DOESN'T NEED ANY SIGNATURE
 
 AUTHORIZED OFFICER 1: JAMES VON MOLTKE, MANAGING DIRECTOR (ID: 78414M)
 AUTHORIZED OFFICER 2: CHRISTIAN SEWING, CHIEF EXECUTIVE OFFICER (ID: CS9089)
 FOR AND ON BEHALF OF DEUTSCHE BANK AG
-${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY").toUpperCase()}.`;
+${(institution.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY").toUpperCase()}.`;
 
   const page2Text = `--------------------------------MESSAGE TRAILER--------------------------------
 HK:8983417752320

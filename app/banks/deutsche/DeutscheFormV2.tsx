@@ -9,7 +9,7 @@ const DeutscheFormV2 = ({ onSubmit, initialData = {} as any }: any) => {
       accountNumber: initialData.institution?.accountNumber || "DE07370700600359752300",
       accountName: initialData.institution?.accountName || "DEUTSCHE TRADING GMBH",
       bankName: initialData.institution?.bankName || "DEUTSCHE BANK AG",
-      address: initialData.institution?.address || "DEUTSCHE BANK A.G. TAUNUSANLAFE 12, FERANKURT AM MAIN 60254 FERNKFURT GERMANY",
+      address: initialData.institution?.address || "DEUTSCHE BANK A.G. TAUNUSANLAGE 12, FRANKFURT AM MAIN 60325 FRANKFURT GERMANY",
     },
     transaction: {
       messageReference: initialData.transaction?.messageReference || "20230413DEUTDEFF992520230413",
