@@ -74,9 +74,10 @@ html, body {
   .print-page {
     display: block !important;
     width: 210mm !important;
-    height: 297mm !important;
-    min-height: 297mm !important;
-    max-height: 297mm !important;
+    height: 296.5mm !important;
+    min-height: 296.5mm !important;
+    max-height: 296.5mm !important;
+    overflow: hidden !important;
     padding: 15mm !important;
     margin: 0 auto !important;
     page-break-after: always !important;
