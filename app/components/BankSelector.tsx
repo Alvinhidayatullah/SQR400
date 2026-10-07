@@ -1,6 +1,7 @@
 "use client";
 
 import { Building2, ChevronRight, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { bankConfigs } from "../utils/bankConfig";
 
@@ -28,8 +29,28 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
   return (
-    <div className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl mb-8 relative overflow-hidden">
+    <motion.div 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl mb-8 relative overflow-hidden"
+    >
       {/* Subtle glow effect */}
       <div className="absolute top-0 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
       
@@ -37,18 +58,26 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
         <Building2 className="w-4 h-4 text-blue-400" />
         Select Bank Module
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6"
+      >
         {banks.map((bank) => {
           const isSelected = selectedBank === bank.id;
           return (
-            <button
+            <motion.button
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               key={bank.id}
               type="button"
               onClick={() => onSelectBank(bank.id)}
-              className={`flex flex-col items-center justify-between p-6 min-h-[160px] rounded-2xl border text-center transition-all duration-300 relative group overflow-hidden ${
+              className={`flex flex-col items-center justify-between p-6 min-h-[160px] rounded-2xl border text-center transition-colors duration-300 relative group overflow-hidden ${
                 isSelected
-                  ? "bg-gradient-to-b from-blue-900/40 to-slate-900/80 border-blue-500/50 shadow-[0_8px_30px_rgb(59,130,246,0.2)] -translate-y-1"
-                  : "bg-slate-900/50 border-white/5 hover:border-white/20 hover:bg-slate-800/80 hover:-translate-y-1 hover:shadow-xl"
+                  ? "bg-gradient-to-b from-blue-900/40 to-slate-900/80 border-blue-500/50 shadow-[0_8px_30px_rgb(59,130,246,0.2)]"
+                  : "bg-slate-900/50 border-white/5 hover:border-white/20 hover:bg-slate-800/80 hover:shadow-xl"
               }`}
             >
               {/* Selected Indicator */}
@@ -81,11 +110,11 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
                 </span>
                 <ChevronRight className={`w-3 h-3 transition-transform duration-300 ${isSelected ? "text-blue-400 translate-x-1" : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
               </div>
-            </button>
+            </motion.button>
           );
         })}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

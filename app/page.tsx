@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { ShieldAlert, Server, Users, UserRound, LogOut, Settings, Settings2, ShieldCheck, ChevronRight, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
 import BankSelector from "./components/BankSelector";
 import HSBCForm from "./banks/hsbc/HSBCForm";
 import BNIForm from "./banks/bni/BNIForm";
@@ -46,6 +48,8 @@ export default function Home() {
     }
   }, [status, session, router]);
 
+  const bgRef = useRef(null);
+
   useEffect(() => {
     if (!session) return;
     const fetchStats = async () => {
@@ -64,6 +68,18 @@ export default function Home() {
     const interval = setInterval(fetchStats, 5000);
     return () => clearInterval(interval);
   }, [session]);
+
+  // GSAP background animation
+  useEffect(() => {
+    if (bgRef.current) {
+      gsap.to(bgRef.current, {
+        backgroundPosition: "4rem 4rem",
+        duration: 10,
+        repeat: -1,
+        ease: "linear",
+      });
+    }
+  }, []);
 
   const handleSubmit = async (data) => {
     setIsGenerating(true);
@@ -210,9 +226,20 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none bg-slate-950">
+      {/* Dynamic Digital Grid Background with GSAP animation */}
+      <div 
+        ref={bgRef}
+        className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_80%,transparent_100%)] opacity-20 pointer-events-none no-print" 
+      />
+
       <div className="max-w-[1400px] w-full mx-auto relative z-10">
         {/* Premium Header Navigation */}
-        <div className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] no-print mb-8 gap-6 transition-all duration-300 relative overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] no-print mb-8 gap-6 transition-all duration-300 relative overflow-hidden"
+        >
           <div className="absolute top-0 right-0 w-1/2 h-[1px] bg-gradient-to-l from-transparent via-blue-500/30 to-transparent" />
           
           {/* Left: Logo & Title */}
@@ -297,7 +324,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Bank Selector - Custom Node Grid */}
         {!showResult && (
@@ -307,21 +334,30 @@ export default function Home() {
         )}
 
         {/* Form or Result Container */}
-        <div className="transition-all duration-300">
-          {isGenerating ? (
-            <div className="flex flex-col items-center justify-center py-20 bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-              <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4" />
-              <p className="text-blue-400 font-semibold tracking-wider text-base animate-pulse">Generating Document...</p>
-            </div>
-          ) : !showResult ? (
-            <div className="bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-4 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative overflow-hidden">
-              <div className="absolute top-0 right-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              {renderForm()}
-            </div>
-          ) : (
-            <TransactionResult data={transactionData} onBack={handleBack} />
-          )}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={isGenerating ? "generating" : (!showResult ? "form" : "result")}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="transition-all duration-300"
+          >
+            {isGenerating ? (
+              <div className="flex flex-col items-center justify-center py-20 bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-4" />
+                <p className="text-blue-400 font-semibold tracking-wider text-base animate-pulse">Generating Document...</p>
+              </div>
+            ) : !showResult ? (
+              <div className="bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-4 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative overflow-hidden">
+                <div className="absolute top-0 right-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                {renderForm()}
+              </div>
+            ) : (
+              <TransactionResult data={transactionData} onBack={handleBack} />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Account Settings Modal */}

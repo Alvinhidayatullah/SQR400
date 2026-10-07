@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { ShieldCheck, Server, Users, UserRound, LogOut, LayoutDashboard, Trash2, List, Activity, Settings2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -128,10 +129,18 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen text-slate-100 py-10 px-4 md:px-8 font-sans antialiased relative overflow-hidden select-none bg-slate-950">
+      {/* Background with GSAP / motion styles matching page.tsx */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_80%,transparent_100%)] opacity-20 pointer-events-none no-print" />
+
       <div className="max-w-[1400px] w-full mx-auto relative z-10">
         
         {/* Premium Admin Header Navigation */}
-        <div className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] no-print mb-8 gap-6 transition-all duration-300 relative overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] no-print mb-8 gap-6 transition-all duration-300 relative overflow-hidden"
+        >
           <div className="absolute top-0 right-0 w-1/2 h-[1px] bg-gradient-to-l from-transparent via-blue-500/30 to-transparent" />
           
           {/* Left: Logo & Title */}
@@ -200,7 +209,7 @@ export default function AdminPage() {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Loading Spinner */}
         {loading && (
@@ -210,7 +219,12 @@ export default function AdminPage() {
         )}
 
         {!loading && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+          >
             {/* Left Box: Registered Users Nodes */}
             <div className="lg:col-span-4 bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] h-fit relative overflow-hidden">
               <div className="absolute top-0 right-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -327,7 +341,7 @@ export default function AdminPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </main>

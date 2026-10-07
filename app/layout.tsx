@@ -6,8 +6,29 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata = {
-  title: "SWIFT MT103",
-  description: "Enterprise-grade decentralized printing node simulator",
+  title: "SQR400 | Enterprise Financial Node",
+  description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
+  openGraph: {
+    title: "SQR400 | Enterprise Financial Node",
+    description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
+    url: "https://sqr400-sigma.vercel.app",
+    siteName: "SQR400 Gateway",
+    images: [
+      {
+        url: "https://sqr400-sigma.vercel.app/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SQR400 System Dashboard",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SQR400 | Enterprise Financial Node",
+    description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
+  },
 };
 
 import { WebVitals } from "./components/WebVitals";
