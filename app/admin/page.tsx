@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { ShieldCheck, Server, Users, UserRound, LogOut, LayoutDashboard, Trash2, List, Activity, Settings2 } from "lucide-react";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -130,67 +131,72 @@ export default function AdminPage() {
       <div className="max-w-[1400px] w-full mx-auto relative z-10">
         
         {/* Premium Admin Header Navigation */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-lg no-print mb-8 gap-6 transition-all duration-300">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-3xl p-4 md:p-6 flex flex-col xl:flex-row justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] no-print mb-8 gap-6 transition-all duration-300 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-1/2 h-[1px] bg-gradient-to-l from-transparent via-blue-500/30 to-transparent" />
           
           {/* Left: Logo & Title */}
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center relative shrink-0">
-              <span className="text-2xl text-blue-400 relative z-10">🛡️</span>
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="w-14 h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 rounded-2xl flex items-center justify-center relative shrink-0 shadow-inner group">
+              <div className="absolute inset-0 bg-blue-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <ShieldCheck className="w-8 h-8 text-blue-400 relative z-10 group-hover:scale-110 transition-transform duration-500" />
             </div>
             <div className="flex flex-col justify-center">
               <h1 className="text-2xl font-bold tracking-wide text-white flex items-center gap-3">
                 SQR400 
-                <span className="text-xs text-blue-300 bg-blue-900/40 px-2 py-1 rounded tracking-widest font-mono">ADMIN</span>
+                <span className="text-xs text-blue-300 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-md tracking-widest font-mono">ADMIN</span>
               </h1>
-              <p className="text-sm text-slate-400 tracking-wide mt-1">
+              <p className="text-sm text-slate-400 tracking-wide mt-1 font-medium">
                 System Administration
               </p>
             </div>
           </div>
 
           {/* Center: Node Metrics */}
-          <div className="flex items-center bg-slate-950 rounded-xl border border-slate-800 p-2 shadow-inner w-full md:w-auto justify-center">
+          <div className="flex items-center bg-slate-900/50 rounded-2xl border border-white/5 p-2 shadow-inner w-full md:w-auto justify-center relative z-10">
             <div className="px-3 md:px-4 flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase">ROLE:</span>
-              <span className="text-sm font-bold text-white">ADMIN</span>
+              <Settings2 className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Role</span>
+              <span className="text-sm font-bold text-white ml-1">ADMIN</span>
             </div>
-            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="w-px h-6 bg-white/10 mx-1 md:mx-2" />
             <div className="px-3 md:px-4 flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase">Users Online</span>
-              <span className="text-sm font-bold text-white">{stats.onlineCount}</span>
+              <Users className="w-4 h-4 text-slate-500" />
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Users</span>
+              <span className="text-sm font-bold text-white ml-1">{stats.onlineCount}</span>
             </div>
-            <div className="w-px h-5 bg-slate-800 mx-1 md:mx-2" />
+            <div className="w-px h-6 bg-white/10 mx-1 md:mx-2" />
             <div className="px-3 md:px-4 flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase">Active Sessions</span>
-              <span className="text-sm font-bold text-white">{stats.activeCount}</span>
+              <Server className="w-4 h-4 text-slate-500" />
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sessions</span>
+              <span className="text-sm font-bold text-white ml-1">{stats.activeCount}</span>
             </div>
           </div>
 
           {/* Right: Actions */}
-          <div className="flex flex-wrap items-center justify-center gap-3 w-full xl:w-auto">
+          <div className="flex flex-wrap items-center justify-center gap-3 w-full xl:w-auto relative z-10">
             <button
               onClick={() => router.push("/")}
-              className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg transition duration-200 border border-slate-700 text-sm font-semibold flex items-center gap-2"
+              className="px-5 py-2.5 bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white rounded-xl transition duration-300 border border-white/10 text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-md backdrop-blur-md"
             >
-              <span>🖥️</span> Dashboard
+              <LayoutDashboard className="w-4 h-4" /> Dashboard
             </button>
             
-            <div className="flex items-center bg-slate-900 rounded-lg border border-slate-800 p-1 shadow-sm">
+            <div className="flex items-center bg-slate-900/60 rounded-xl border border-white/5 p-1.5 shadow-sm backdrop-blur-md">
               <div className="px-4 py-2 flex items-center gap-2 group cursor-default">
-                <span className="text-sm">👤</span>
+                <UserRound className="w-4 h-4 text-slate-400" />
                 <span className="text-sm font-semibold text-slate-300">
                   {(session.name || session.username).length > 10 ? `${(session.name || session.username).substring(0, 7)}...` : (session.name || session.username)}
                 </span>
               </div>
               
-              <div className="w-px h-5 bg-slate-800 mx-1" />
+              <div className="w-px h-6 bg-white/10 mx-1" />
               
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 hover:bg-red-900/50 rounded-md transition-colors flex items-center gap-2 group text-slate-300 hover:text-red-400"
+                className="px-4 py-2 hover:bg-red-500/10 rounded-lg transition-colors flex items-center gap-2 group text-slate-400 hover:text-red-400"
               >
                 <span className="text-sm font-semibold">Logout</span>
-                <span className="text-sm">🚪</span>
+                <LogOut className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -206,9 +212,10 @@ export default function AdminPage() {
         {!loading && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left Box: Registered Users Nodes */}
-            <div className="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl h-fit relative overflow-hidden">
-              <h2 className="text-sm font-semibold tracking-wide text-slate-400 uppercase mb-5 flex items-center gap-2">
-                <span>👥</span> User Accounts ({users.length})
+            <div className="lg:col-span-4 bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] h-fit relative overflow-hidden">
+              <div className="absolute top-0 right-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <h2 className="text-sm font-semibold tracking-wide text-slate-300 uppercase mb-5 flex items-center gap-2">
+                <Users className="w-4 h-4 text-blue-400" /> User Accounts ({users.length})
               </h2>
               {users.length === 0 ? (
                 <p className="text-sm text-slate-500 italic py-4">No users found</p>
@@ -232,10 +239,10 @@ export default function AdminPage() {
                       </div>
                       <button
                         onClick={() => handleDeleteUser(user.username)}
-                        className="opacity-0 group-hover:opacity-100 p-2.5 bg-red-900/30 hover:bg-red-800 text-red-400 hover:text-white rounded-lg text-sm font-bold transition outline-none"
+                        className="opacity-0 group-hover:opacity-100 p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-lg text-sm transition-all outline-none"
                         title="Delete User"
                       >
-                        🗑️
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   ))}
@@ -245,11 +252,12 @@ export default function AdminPage() {
 
             {/* Right Box: Cryptographic Ledger Logs */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+              <div className="bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] relative overflow-hidden">
+                <div className="absolute top-0 right-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <div>
-                    <h2 className="text-sm font-semibold tracking-wide text-slate-400 uppercase flex items-center gap-2">
-                      <span>📊</span> Transaction Activity Log
+                    <h2 className="text-sm font-semibold tracking-wide text-slate-300 uppercase flex items-center gap-2">
+                      <Activity className="w-4 h-4 text-blue-400" /> Transaction Activity Log
                     </h2>
                     <p className="text-sm text-slate-500 mt-1">Total items synced: {traffic.length}</p>
                   </div>
@@ -257,16 +265,16 @@ export default function AdminPage() {
                     <input
                       type="text"
                       placeholder="Filter by username..."
-                      className="px-4 py-2.5 bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl text-sm text-slate-200 outline-none w-full sm:w-44 focus:ring-1 focus:ring-blue-500/50"
+                      className="px-4 py-2.5 bg-slate-900/50 border border-white/10 focus:border-blue-500/50 rounded-xl text-sm text-slate-200 outline-none w-full sm:w-44 focus:ring-1 focus:ring-blue-500/30 transition-all"
                       value={searchUser}
                       onChange={(e) => setSearchUser(e.target.value)}
                     />
                     {!flushConfirm ? (
                       <button
                         onClick={() => setFlushConfirm(true)}
-                        className="px-4 py-2.5 bg-red-900/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 rounded-xl text-sm font-semibold transition border border-red-900/30"
+                        className="px-4 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-semibold transition-all border border-red-500/20 flex items-center gap-2"
                       >
-                        🗑️ Clear Logs
+                        <Trash2 className="w-4 h-4" /> Clear Logs
                       </button>
                     ) : (
                       <div className="flex items-center gap-2 font-mono">
