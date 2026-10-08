@@ -1,7 +1,7 @@
 "use client";
 
 import { Building2, ChevronRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 import { bankConfigs } from "../utils/bankConfig";
 
@@ -29,7 +29,7 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
     }
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -39,7 +39,7 @@ const BankSelector = ({ selectedBank, onSelectBank }) => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
   };
