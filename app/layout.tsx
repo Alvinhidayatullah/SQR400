@@ -6,10 +6,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata = {
-  title: "DEUTSCHE BANK | Enterprise Financial Node",
+  title: "DEUTSCHE BANK",
   description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
   openGraph: {
-    title: "DEUTSCHE BANK | Enterprise Financial Node",
+    title: "DEUTSCHE BANK",
     description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
     url: "https://sqr400-sigma.vercel.app",
     siteName: "DEUTSCHE BANK",
@@ -26,7 +26,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DEUTSCHE BANK | Enterprise Financial Node",
+    title: "DEUTSCHE BANK",
     description: "Enterprise-grade decentralized SWIFT printing node simulator and gateway.",
   },
 };
