@@ -147,7 +147,7 @@ export default function AdminPage() {
           <div className="flex items-center gap-4 relative z-10">
             <div className="w-14 h-14 bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 rounded-2xl flex items-center justify-center relative shrink-0 shadow-inner group">
               <div className="absolute inset-0 bg-blue-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <ShieldCheck className="w-8 h-8 text-blue-400 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+              <img src="/logos/deutsche.png" alt="Logo" className="w-8 h-8 object-contain relative z-10 group-hover:scale-110 transition-transform duration-500" />
             </div>
             <div className="flex flex-col justify-center">
               <h1 className="text-2xl font-bold tracking-wide text-white flex items-center gap-3">

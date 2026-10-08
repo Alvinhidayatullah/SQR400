@@ -117,7 +117,7 @@ export default function LoginPage() {
           <div className="w-16 h-16 bg-slate-900/50 border border-white/10 rounded-2xl flex items-center justify-center mb-5 relative shadow-inner group">
             {/* Holographic rings */}
             <div className="absolute inset-[-1px] rounded-2xl border border-cyan-500/30 group-hover:scale-[1.03] transition-all duration-500 pointer-events-none" />
-            <span className="text-3xl text-cyan-400 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">⚡</span>
+            <img src="/logos/deutsche.png" alt="Logo" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
           </div>
           <h1 className="text-2xl font-black tracking-wider text-white font-outfit">
             SQR400 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">GATEWAY</span>
