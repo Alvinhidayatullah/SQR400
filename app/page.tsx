@@ -250,7 +250,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col justify-center">
               <h1 className="text-2xl font-bold tracking-wide text-white flex items-center gap-3">
-                SQR400 
+                DEUTSCHE BANK 
                 <span className="text-xs text-blue-300 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-md tracking-widest font-mono">v5.8</span>
               </h1>
               <p className="text-sm text-slate-400 tracking-wide mt-1 font-medium">

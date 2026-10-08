@@ -120,7 +120,7 @@ export default function LoginPage() {
             <img src="/logos/deutsche.png" alt="Logo" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
           </div>
           <h1 className="text-2xl font-black tracking-wider text-white font-outfit">
-            SQR400 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">GATEWAY</span>
+            DEUTSCHE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">BANK</span>
           </h1>
           <p className="text-xs text-slate-400 font-sans tracking-widest uppercase mt-2">
             Decentralized Swift Portal
@@ -207,7 +207,7 @@ export default function LoginPage() {
 
       {/* Footer copyright */}
       <div className="mt-12 text-[10px] font-sans text-slate-500 tracking-widest relative z-10 uppercase opacity-60">
-        SQR400 PROTOCOL • SECURED VIA SHA-256 PBKDF2
+        DEUTSCHE BANK PROTOCOL • SECURED VIA SHA-256 PBKDF2
       </div>
     </main>
   );
