@@ -60,7 +60,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
       >
         
         {/* PAGE 1: APPENDIX A */}
-        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial", sans-serif' }}>
+        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
           <BorderWrapper>
             
             {/* Header / Logo */}
@@ -78,91 +78,91 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
 
             {/* Title */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold tracking-widest font-sans" style={{ transform: "scaleY(1.2)" }}>CLIENT INFORMATION SHEET</h1>
+              <h1 className="text-2xl font-bold tracking-widest" style={{ transform: "scaleY(1.3)" }}>CLIENT INFORMATION SHEET</h1>
             </div>
 
             {/* Subtitle */}
-            <div className="text-center mb-6 font-bold uppercase text-lg tracking-wide">
+            <div className="text-center mb-6 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
               <div>APPENDIX A.</div>
               <div>COMPANY INFORMATION</div>
             </div>
 
             {/* Table */}
-            <table className="w-full border-collapse border-2 border-black text-[12.5px] font-bold tracking-wide">
+            <table className="w-full border-collapse border-2 border-black text-[14px] font-bold tracking-wide" style={{ transform: "scaleY(1.1)", transformOrigin: "top" }}>
               <tbody>
                 <tr className="border-b-2 border-black">
-                  <td className="w-1/3 border-r-2 border-black py-2.5 px-3 uppercase">COMPANY NAME:</td>
-                  <td className="w-2/3 py-2.5 px-3 uppercase">{company.companyName}</td>
+                  <td className="w-1/3 border-r-2 border-black py-2 px-3 uppercase">COMPANY NAME:</td>
+                  <td className="w-2/3 py-2 px-3 uppercase">{company.companyName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">COMPANY REG. ADDRESS:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.companyRegAddress}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">COMPANY REG. ADDRESS:</td>
+                  <td className="py-2 px-3 uppercase">{company.companyRegAddress}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">COMPANY REG. NO:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.companyRegNo}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">COMPANY REG. NO:</td>
+                  <td className="py-2 px-3 uppercase">{company.companyRegNo}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">REPRESENTED BY:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.representedBy}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">REPRESENTED BY:</td>
+                  <td className="py-2 px-3 uppercase">{company.representedBy}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">TITLE:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.title}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">TITLE:</td>
+                  <td className="py-2 px-3 uppercase">{company.title}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">PASSPORT №:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.passportNo}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">PASSPORT №:</td>
+                  <td className="py-2 px-3 uppercase">{company.passportNo}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">DATE OF ISSUE:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.dateOfIssue}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">DATE OF ISSUE:</td>
+                  <td className="py-2 px-3 uppercase">{company.dateOfIssue}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">DATE OF EXPIRY:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.dateOfExpiry}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">DATE OF EXPIRY:</td>
+                  <td className="py-2 px-3 uppercase">{company.dateOfExpiry}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">PLACE OF ISSUE:</td>
-                  <td className="py-2.5 px-3 uppercase">{company.placeOfIssue}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">PLACE OF ISSUE:</td>
+                  <td className="py-2 px-3 uppercase">{company.placeOfIssue}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">BANK NAME:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.bankName}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK NAME:</td>
+                  <td className="py-2 px-3 uppercase">{bank.bankName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">BANK ADDRESS:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.bankAddress}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK ADDRESS:</td>
+                  <td className="py-2 px-3 uppercase">{bank.bankAddress}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">SWIFT CODE:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.swiftCode}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">SWIFT CODE:</td>
+                  <td className="py-2 px-3 uppercase">{bank.swiftCode}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">ACCOUNT NUMBER :</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.accountNumber}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">ACCOUNT NUMBER :</td>
+                  <td className="py-2 px-3 uppercase">{bank.accountNumber}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">IBAN :</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.iban}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">IBAN :</td>
+                  <td className="py-2 px-3 uppercase">{bank.iban}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">ACCOUNT NAME:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.accountName}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">ACCOUNT NAME:</td>
+                  <td className="py-2 px-3 uppercase">{bank.accountName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">BANK OFFICER:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.bankOfficer}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK OFFICER:</td>
+                  <td className="py-2 px-3 uppercase">{bank.bankOfficer}</td>
                 </tr>
                 <tr>
-                  <td className="border-r-2 border-black py-2.5 px-3 uppercase">BANK E-MAIL:</td>
-                  <td className="py-2.5 px-3 text-blue-700 underline font-normal uppercase">{bank.bankEmail}</td>
+                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK E-MAIL:</td>
+                  <td className="py-2 px-3 text-blue-700 underline font-normal uppercase">{bank.bankEmail}</td>
                 </tr>
               </tbody>
             </table>
 
             {/* Oath and Signature Section */}
-            <div className="mt-8 text-[12.5px] font-bold tracking-wide uppercase">
+            <div className="mt-8 text-[13.5px] font-bold tracking-wide uppercase" style={{ transform: "scaleY(1.1)", transformOrigin: "top" }}>
               <p className="mb-6 leading-relaxed">
                 I, {company.representedBy}, HEREBY SWEAR UNDER PENALTY OF PERJURY, THAT THE INFORMATION PROVIDED HEREIN IS ACCURATE AND TRUE AS OF THIS DATE: <span className="text-blue-700">{meta.oathDate}</span>
               </p>
@@ -196,9 +196,9 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
         </div>
 
         {/* PAGE 2: APPENDIX B */}
-        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial", sans-serif' }}>
+        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
           <BorderWrapper>
-            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide">
+            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
               <div>APPENDIX B.</div>
               <div>PASSPORT COPY</div>
             </div>
@@ -206,7 +206,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
             <div className="w-full flex-grow flex justify-center items-start mt-8">
               <div className="relative w-full max-w-[650px] h-[600px]">
                 <Image 
-                  src="/images/canvas.png" 
+                  src="/images/passport.png" 
                   alt="Passport Copy" 
                   layout="fill"
                   objectFit="contain"
