@@ -64,13 +64,14 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
           <BorderWrapper>
             
             {/* Header / Logo */}
-            <div className="w-full flex justify-center mb-6 mt-4">
+            <div className="w-full flex justify-start mb-6 mt-4">
               <div className="relative w-full max-w-[450px] h-[80px]">
                 <Image 
                   src="/images/pat.png" 
                   alt="PAT Logo" 
                   layout="fill"
                   objectFit="contain"
+                  objectPosition="left"
                 />
               </div>
             </div>
@@ -155,10 +156,42 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
                 </tr>
                 <tr>
                   <td className="border-r-2 border-black py-2.5 px-3 uppercase">BANK E-MAIL:</td>
-                  <td className="py-2.5 px-3 uppercase">{bank.bankEmail}</td>
+                  <td className="py-2.5 px-3 text-blue-700 underline font-normal uppercase">{bank.bankEmail}</td>
                 </tr>
               </tbody>
             </table>
+
+            {/* Oath and Signature Section */}
+            <div className="mt-8 text-[12.5px] font-bold tracking-wide uppercase">
+              <p className="mb-6 leading-relaxed">
+                I, {company.representedBy}, HEREBY SWEAR UNDER PENALTY OF PERJURY, THAT THE INFORMATION PROVIDED HEREIN IS ACCURATE AND TRUE AS OF THIS DATE: <span className="text-blue-700">{meta.oathDate}</span>
+              </p>
+              
+              <p className="mb-4">
+                FOR AND ON BEHALF OF {company.companyName}:
+              </p>
+
+              <div className="relative w-full max-w-[350px] h-[120px] mb-6">
+                <Image 
+                  src="/pat-signature.jpeg" 
+                  alt="Signature and Stamp" 
+                  layout="fill"
+                  objectFit="contain"
+                  className="opacity-95 mix-blend-multiply origin-left"
+                />
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <div className="flex items-end">
+                  <span className="mr-2">SIGNATURE:</span>
+                  <div className="border-b-2 border-black w-64 max-w-[300px]"></div>
+                </div>
+                <div>
+                  NAME: {company.representedBy}
+                </div>
+              </div>
+            </div>
+
           </BorderWrapper>
         </div>
 
