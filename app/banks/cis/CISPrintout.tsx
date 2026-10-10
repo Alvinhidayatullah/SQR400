@@ -88,7 +88,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
             </div>
 
             {/* Table */}
-            <table className="w-full border-collapse border-2 border-black text-[14px] font-bold tracking-wide" style={{ transform: "scaleY(1.1)", transformOrigin: "top" }}>
+            <table className="w-full border-collapse border-2 border-black text-[14px] font-bold tracking-wide">
               <tbody>
                 <tr className="border-b-2 border-black">
                   <td className="w-1/3 border-r-2 border-black py-2 px-3 uppercase">COMPANY NAME:</td>
@@ -162,7 +162,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
             </table>
 
             {/* Oath and Signature Section */}
-            <div className="mt-8 text-[13.5px] font-bold tracking-wide uppercase" style={{ transform: "scaleY(1.1)", transformOrigin: "top" }}>
+            <div className="mt-8 text-[13.5px] font-bold tracking-wide uppercase">
               <p className="mb-6 leading-relaxed">
                 I, {company.representedBy}, HEREBY SWEAR UNDER PENALTY OF PERJURY, THAT THE INFORMATION PROVIDED HEREIN IS ACCURATE AND TRUE AS OF THIS DATE: <span className="text-blue-700">{meta.oathDate}</span>
               </p>
@@ -198,7 +198,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
         {/* PAGE 2: APPENDIX B */}
         <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
           <BorderWrapper>
-            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
+            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide">
               <div>APPENDIX B.</div>
               <div>PASSPORT COPY</div>
             </div>
@@ -219,7 +219,7 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
         {/* PAGE 3: APPENDIX C */}
         <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
           <BorderWrapper>
-            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
+            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide">
               <div>APPENDIX C.</div>
               <div>CERTIFICATE OF REGISTRATION</div>
             </div>
