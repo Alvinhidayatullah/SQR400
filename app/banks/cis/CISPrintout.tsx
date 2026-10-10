@@ -24,6 +24,14 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
   return (
     <div className={isPublic ? "w-full flex flex-col items-center" : "bg-slate-900 border border-slate-800 rounded-3xl p-6 print:bg-white print:border-none print:p-0 shadow-2xl text-slate-100"}>
       
+      <style dangerouslySetInnerHTML={{__html: `
+        @media print {
+          @page { size: A4; margin: 0; }
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .print-page-wrapper { overflow: hidden; page-break-after: always; break-after: page; }
+        }
+      `}} />
+
       {/* Back and Print buttons */}
       {!isPublic && (
         <div className="flex flex-wrap justify-between gap-3 mb-6 no-print">
@@ -60,12 +68,12 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
       >
         
         {/* PAGE 1: APPENDIX A */}
-        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
+        <div className={`w-[210mm] h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm print-page-wrapper`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
           <BorderWrapper>
             
             {/* Header / Logo */}
-            <div className="w-full flex justify-start mb-6 mt-4">
-              <div className="relative w-full max-w-[450px] h-[80px]">
+            <div className="w-full flex justify-start mb-4 mt-2">
+              <div className="relative w-full max-w-[450px] h-[60px]">
                 <Image 
                   src="/images/pat.png" 
                   alt="PAT Logo" 
@@ -77,101 +85,101 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
             </div>
 
             {/* Title */}
-            <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold tracking-widest" style={{ transform: "scaleY(1.3)" }}>CLIENT INFORMATION SHEET</h1>
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-bold tracking-widest" style={{ transform: "scaleY(1.2)" }}>CLIENT INFORMATION SHEET</h1>
             </div>
 
             {/* Subtitle */}
-            <div className="text-center mb-6 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
+            <div className="text-center mb-4 font-bold uppercase text-base tracking-wide">
               <div>APPENDIX A.</div>
               <div>COMPANY INFORMATION</div>
             </div>
 
             {/* Table */}
-            <table className="w-full border-collapse border-2 border-black text-[14px] font-bold tracking-wide">
+            <table className="w-full border-collapse border-2 border-black text-[13px] font-bold tracking-wide">
               <tbody>
                 <tr className="border-b-2 border-black">
-                  <td className="w-1/3 border-r-2 border-black py-2 px-3 uppercase">COMPANY NAME:</td>
-                  <td className="w-2/3 py-2 px-3 uppercase">{company.companyName}</td>
+                  <td className="w-1/3 border-r-2 border-black py-1 px-2 uppercase">COMPANY NAME:</td>
+                  <td className="w-2/3 py-1 px-2 uppercase">{company.companyName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">COMPANY REG. ADDRESS:</td>
-                  <td className="py-2 px-3 uppercase">{company.companyRegAddress}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">COMPANY REG. ADDRESS:</td>
+                  <td className="py-1 px-2 uppercase">{company.companyRegAddress}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">COMPANY REG. NO:</td>
-                  <td className="py-2 px-3 uppercase">{company.companyRegNo}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">COMPANY REG. NO:</td>
+                  <td className="py-1 px-2 uppercase">{company.companyRegNo}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">REPRESENTED BY:</td>
-                  <td className="py-2 px-3 uppercase">{company.representedBy}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">REPRESENTED BY:</td>
+                  <td className="py-1 px-2 uppercase">{company.representedBy}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">TITLE:</td>
-                  <td className="py-2 px-3 uppercase">{company.title}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">TITLE:</td>
+                  <td className="py-1 px-2 uppercase">{company.title}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">PASSPORT №:</td>
-                  <td className="py-2 px-3 uppercase">{company.passportNo}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">PASSPORT №:</td>
+                  <td className="py-1 px-2 uppercase">{company.passportNo}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">DATE OF ISSUE:</td>
-                  <td className="py-2 px-3 uppercase">{company.dateOfIssue}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">DATE OF ISSUE:</td>
+                  <td className="py-1 px-2 uppercase">{company.dateOfIssue}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">DATE OF EXPIRY:</td>
-                  <td className="py-2 px-3 uppercase">{company.dateOfExpiry}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">DATE OF EXPIRY:</td>
+                  <td className="py-1 px-2 uppercase">{company.dateOfExpiry}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">PLACE OF ISSUE:</td>
-                  <td className="py-2 px-3 uppercase">{company.placeOfIssue}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">PLACE OF ISSUE:</td>
+                  <td className="py-1 px-2 uppercase">{company.placeOfIssue}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK NAME:</td>
-                  <td className="py-2 px-3 uppercase">{bank.bankName}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">BANK NAME:</td>
+                  <td className="py-1 px-2 uppercase">{bank.bankName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK ADDRESS:</td>
-                  <td className="py-2 px-3 uppercase">{bank.bankAddress}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">BANK ADDRESS:</td>
+                  <td className="py-1 px-2 uppercase">{bank.bankAddress}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">SWIFT CODE:</td>
-                  <td className="py-2 px-3 uppercase">{bank.swiftCode}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">SWIFT CODE:</td>
+                  <td className="py-1 px-2 uppercase">{bank.swiftCode}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">ACCOUNT NUMBER :</td>
-                  <td className="py-2 px-3 uppercase">{bank.accountNumber}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">ACCOUNT NUMBER :</td>
+                  <td className="py-1 px-2 uppercase">{bank.accountNumber}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">IBAN :</td>
-                  <td className="py-2 px-3 uppercase">{bank.iban}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">IBAN :</td>
+                  <td className="py-1 px-2 uppercase">{bank.iban}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">ACCOUNT NAME:</td>
-                  <td className="py-2 px-3 uppercase">{bank.accountName}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">ACCOUNT NAME:</td>
+                  <td className="py-1 px-2 uppercase">{bank.accountName}</td>
                 </tr>
                 <tr className="border-b-2 border-black">
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK OFFICER:</td>
-                  <td className="py-2 px-3 uppercase">{bank.bankOfficer}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">BANK OFFICER:</td>
+                  <td className="py-1 px-2 uppercase">{bank.bankOfficer}</td>
                 </tr>
                 <tr>
-                  <td className="border-r-2 border-black py-2 px-3 uppercase">BANK E-MAIL:</td>
-                  <td className="py-2 px-3 text-blue-700 underline font-normal uppercase">{bank.bankEmail}</td>
+                  <td className="border-r-2 border-black py-1 px-2 uppercase">BANK E-MAIL:</td>
+                  <td className="py-1 px-2 text-blue-700 underline font-normal uppercase">{bank.bankEmail}</td>
                 </tr>
               </tbody>
             </table>
 
             {/* Oath and Signature Section */}
-            <div className="mt-8 text-[13.5px] font-bold tracking-wide uppercase">
-              <p className="mb-6 leading-relaxed">
+            <div className="mt-6 text-[12.5px] font-bold tracking-wide uppercase">
+              <p className="mb-4 leading-relaxed">
                 I, {company.representedBy}, HEREBY SWEAR UNDER PENALTY OF PERJURY, THAT THE INFORMATION PROVIDED HEREIN IS ACCURATE AND TRUE AS OF THIS DATE: <span className="text-blue-700">{meta.oathDate}</span>
               </p>
               
-              <p className="mb-4">
+              <p className="mb-2">
                 FOR AND ON BEHALF OF {company.companyName}:
               </p>
 
-              <div className="relative w-full max-w-[350px] h-[120px] mb-6">
+              <div className="relative w-full max-w-[280px] h-[70px] mb-4">
                 <Image 
                   src="/pat-signature.jpeg" 
                   alt="Signature and Stamp" 
@@ -181,10 +189,10 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
                 />
               </div>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
                 <div className="flex items-end">
                   <span className="mr-2">SIGNATURE:</span>
-                  <div className="border-b-2 border-black w-64 max-w-[300px]"></div>
+                  <div className="border-b-2 border-black w-48 max-w-[300px]"></div>
                 </div>
                 <div>
                   NAME: {company.representedBy}
