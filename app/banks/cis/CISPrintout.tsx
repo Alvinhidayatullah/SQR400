@@ -216,6 +216,27 @@ const CISPrintout = ({ data, onBack, isPublic = false }: { data: any, onBack?: (
           </BorderWrapper>
         </div>
 
+        {/* PAGE 3: APPENDIX C */}
+        <div className={`w-[210mm] min-h-[297mm] mx-auto bg-white p-[10mm] text-black ${isPublic ? 'shadow-2xl' : 'shadow-2xl'} print:shadow-none print:p-[10mm] relative font-sans text-sm break-after-page`} style={{ fontFamily: '"Arial Narrow", "Helvetica Condensed", Impact, Arial, sans-serif', fontStretch: 'condensed' }}>
+          <BorderWrapper>
+            <div className="text-center mb-8 mt-12 font-bold uppercase text-lg tracking-wide" style={{ transform: "scaleY(1.1)" }}>
+              <div>APPENDIX C.</div>
+              <div>CERTIFICATE OF REGISTRATION</div>
+            </div>
+            
+            <div className="w-full flex-grow flex justify-center items-start mt-8">
+              <div className="relative w-full max-w-[650px] h-[750px]">
+                <Image 
+                  src="/images/canvas.png" 
+                  alt="Certificate of Registration" 
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+            </div>
+          </BorderWrapper>
+        </div>
+
       </div>
     </div>
   );
